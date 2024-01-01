@@ -1,7 +1,7 @@
 // main.js
 
 import { initData, getAllRecipes } from "./utils/dataManager.js";
-import { AppComponent } from "./components/AppComponents.js";
+import { AppComponent } from "./components/App.js";
 
 async function init() {
     const main = document.querySelector("#main");

@@ -1,13 +1,13 @@
 // components/AppComponent.js
 
-import { HeaderComponent } from './HeaderComponent.js';
-import { RecipeListComponent } from './RecipeListComponent.js';
+import { HeaderComponent } from './Header.js';
+import { RecipeListComponent } from './RecipeList.js';
 
 export function AppComponent(recipes) {
     const app = document.createElement('div');
     app.className = 'app-container';
 
-    const header = HeaderComponent();
+    const header = HeaderComponent(recipes);
     const recipeList = RecipeListComponent(recipes);
 
     app.appendChild(header);
