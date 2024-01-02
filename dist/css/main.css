@@ -305,9 +305,79 @@ template {
   display: none;
 }
 
+* {
+  font-family: "Manrope", sans-serif;
+}
+
+.site-header__wrapper {
+  height: max(100px, 35vmax);
+  padding: 1rem 0;
+  position: relative;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.site-header__logo {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  position: absolute;
+  top: 2vmax;
+  left: 2vmax;
+  z-index: 1;
+  color: #fcfcfc;
+}
+.site-header__background {
+  background: url(../../assets/images/header-background.jpg) center center no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.site-header__title {
+  z-index: 100;
+}
+.site-header .search-bar {
+  position: relative;
+  z-index: 100;
+  margin-top: max(1rem, 2vmax);
+  max-width: 954px;
+  width: calc(100% - 4rem);
+  display: flex;
+  justify-content: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+.site-header .search-bar img {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.site-header .search-bar input {
+  width: 100%;
+  height: 72px;
+  padding: 0.5rem 1rem;
+  border-radius: 11px;
+  padding-left: 3rem;
+}
+.site-header .search-bar input::placeholder {
+  font-family: "Manrope", sans-serif;
+  color: #7A7A7A;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
 .site-header h1 {
-  font-size: 2.5rem;
-  font-weight: 300;
+  font-size: max(10px, 2.3vmax);
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.1rem;
   margin: 0;
   padding: 0;
   text-align: center;

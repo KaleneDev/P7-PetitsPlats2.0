@@ -1,16 +1,21 @@
 // components/HeaderComponent.js
 import jsxParser from "../utils/jsxParser.js";
+import { SearchBarComponent } from "./searchBar.js";
 
 export function HeaderComponent(recipes) {
     return jsxParser`
-            <header class="site-header">
+        <header class="site-header">
+            <div class="site-header__wrapper">
+                <div class="site-header__background"></div>
                 <div class="site-header__logo">
-                    <span class="site-header__logo__text">LES PETITS PLATS</span>                                                               
+                    <img src="assets/images/logo.png" alt="logo" />                                                              
+                </div>
+                <div class="site-header__title">
+                    <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES </br>
+                    DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
+                </div>
+                ${SearchBarComponent()}
             </div>
-
-            <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES </br>
-            DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
-
         </header>
     `;
 }
