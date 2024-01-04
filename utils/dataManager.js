@@ -6,7 +6,7 @@ export function initData() {
     recipesData = recipes;
 }
 // Fonction pour obtenir toutes les recettes
-export async function getAllRecipes() {
+export function getAllRecipes() {
     return recipesData;
 }
 
