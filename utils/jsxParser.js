@@ -25,7 +25,7 @@ export default function jsxParser(strings, ...values) {
             htmlString += strings[index + 1];
         }
     });
-    
+
     // Mettre à jour le contenu du template une dernière fois
     template.innerHTML = htmlString.trim();
 
