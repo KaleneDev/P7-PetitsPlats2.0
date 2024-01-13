@@ -3,7 +3,7 @@ import jsxParser from "../utils/jsxParser.js";
 import { SearchBarComponent } from "./searchBar.js";
 
 export function HeaderComponent(recipes) {
-    return jsxParser`
+    return jsxParser/*html*/`
         <header class="site-header">
             <div class="site-header__wrapper">
                 <div class="site-header__background"></div>
@@ -14,6 +14,7 @@ export function HeaderComponent(recipes) {
                     <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES </br>
                     DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</h1>
                 </div>
+                
                 ${SearchBarComponent()}
             </div>
         </header>
