@@ -1,9 +1,9 @@
-import recipes from "../data/recipes.js";
-
 let recipesData = [];
 
-export function initData() {
-    recipesData = recipes;
+export async function initData() {
+    recipesData = fetch("../data/recipes.json")
+        .then((response) => response.json())
+        .catch((error) => console.error(error));
 }
 // Fonction pour obtenir toutes les recettes
 export function getAllRecipes() {
