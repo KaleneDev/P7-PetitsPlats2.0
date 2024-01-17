@@ -415,12 +415,21 @@ body {
   color: #FFD15B;
 }
 
-.recipe-list {
+#recipe-list-container {
   max-width: 1249px;
-  margin: 4rem auto;
+  margin: 0 auto;
+}
+#recipe-list-container .message {
+  text-align: center;
+  padding: 2rem;
+}
+
+.recipe-list {
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 2rem;
+  padding: 2rem 1rem 6rem 1rem;
 }
 .recipe-container {
   max-width: 380px;

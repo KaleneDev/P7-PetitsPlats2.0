@@ -3,7 +3,6 @@ import jsxParser from "../utils/jsxParser.js";
 import limiteDescription from "../utils/limiteDescription.js";
 
 export function RecipeListComponent(recipes) {
-    console.log(recipes);
     const recipeItems = recipes
         .map(
             (recipe) => /*html*/ `
@@ -31,8 +30,16 @@ export function RecipeListComponent(recipes) {
                                 .map((ingredient) => {
                                     return /*html*/ `
                                             <ul >
-                                                <li class="ingredient"> ${ingredient.ingredient} </li>
-                                                <li class="quantityUnit"> ${ingredient.quantity ? ingredient.quantity : ""} ${ingredient.unit ? ingredient.unit : ""} </li>
+                                                <li class="ingredient"> ${
+                                                    ingredient.ingredient
+                                                } </li>
+                                                <li class="quantityUnit"> ${
+                                                    ingredient.quantity
+                                                        ? ingredient.quantity
+                                                        : ""
+                                                } ${
+                                        ingredient.unit ? ingredient.unit : ""
+                                    } </li>
                                             </ul>
                                 `;
                                 })
@@ -47,8 +54,10 @@ export function RecipeListComponent(recipes) {
         .join("");
 
     return jsxParser/*html*/ `
-        <div class="recipe-list">
-            ${recipeItems}
+        <div id="recipe-list-container"> 
+            <div class="recipe-list">
+                ${recipeItems}
+            </div>
         </div>
     `;
 }
