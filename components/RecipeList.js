@@ -1,6 +1,6 @@
 // components/RecipeListComponent.js
 import jsxParser from "../utils/jsxParser.js";
-import limiteDescription from "../utils/limiteDescription.js";
+import { limiteDescription } from "../utils/limiteDescription.js";
 
 export function RecipeListComponent(recipes) {
     const recipeItems = recipes

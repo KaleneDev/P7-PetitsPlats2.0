@@ -7,4 +7,6 @@ function limiteDescription(description) {
     return description;
 }
  
-export default limiteDescription;
+
+
+export {limiteDescription} 
