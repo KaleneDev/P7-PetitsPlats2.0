@@ -1,5 +1,14 @@
 import { RecipeListComponent } from "../components/RecipeList.js";
 let recipesData = [];
+let recipesList = [];
+
+export function getRecipesList() {
+    return recipesList;
+}
+
+export function setRecipesList(list) {
+    recipesList = list;
+}
 
 export async function initData() {
     try {
@@ -22,7 +31,10 @@ export function getRecipeById(id) {
 
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
-    return recipesData.filter(
+    // faire un split de searchTerm
+    // puis chercher sur plusieurs mots
+    const data = getRecipesList().length > 0 ? getRecipesList() : recipesData;
+    return data.filter(
         (recipe) =>
             recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             recipe.ingredients.some((ingredient) =>
@@ -40,4 +52,5 @@ export function updateRecipeList(recipes) {
     if (container) {
         container.innerHTML = recipeListHTML.outerHTML;
     }
+    setRecipesList(recipes);
 }
