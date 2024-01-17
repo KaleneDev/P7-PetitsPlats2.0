@@ -1,13 +1,13 @@
 import { RecipeListComponent } from "../components/RecipeList.js";
 let recipesData = [];
-let recipeList = [];
+let recipesList = [];
 
-export function getRecipeList() {
-    return recipeList;
+export function getRecipesList() {
+    return recipesList;
 }
 
-export function setRecipeList(recipes) {
-    recipeList = recipes;
+export function setRecipesList(list) {
+    recipesList = list;
 }
 
 export async function initData() {
@@ -31,9 +31,9 @@ export function getRecipeById(id) {
 
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
-
-    const data = getRecipeList().length > 0 ? getRecipeList() : recipesData;
-
+    // faire un split de searchTerm
+    // puis chercher sur plusieurs mots
+    const data = getRecipesList().length > 0 ? getRecipesList() : recipesData;
     return data.filter(
         (recipe) =>
             recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -53,5 +53,5 @@ export function updateRecipeList(recipes) {
     if (container) {
         container.innerHTML = recipeListHTML.outerHTML;
     }
-    setRecipeList(recipes);
+    setRecipesList(recipes);
 }

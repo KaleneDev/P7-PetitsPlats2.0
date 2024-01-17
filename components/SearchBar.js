@@ -12,14 +12,19 @@ export function SearchBarComponent() {
     `;
 }
 
+function sanitizeStr(str) {
+    // sanitize input user
+    return str;
+}
+
 export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
     if (searchInput) {
-        searchInput.addEventListener("input", (event) => {
-            const searchTerm = event.target.value;
-            const cleanSearchTerm = cleanString(searchTerm);
-            if (cleanSearchTerm.length >= 3) {
-                const filteredRecipes = searchRecipes(cleanSearchTerm);
+        searchInput.addEventListener('input', (event) => { 
+            const searchTerm = sanitizeStr(event.target.value);
+            // 
+            if (searchTerm.length >= 3) {
+                const filteredRecipes = searchRecipes(searchTerm);
                 updateRecipeList(filteredRecipes);
 
                 if (filteredRecipes.length === 0) {
@@ -36,13 +41,7 @@ export function setupSearchInput() {
                     listRecipeContainer.appendChild(message);
                 }
             } else {
-                // const listRecipeContainer = document.getElementById(
-                //     "recipe-list-container"
-                // );
-                // const message = document.createElement("div");
-                // message.classList.add("message");
-                // message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-                // listRecipeContainer.appendChild(message);
+                // message pour dire qu'il faut chercher au minimum 3 caractères
             }
         });
     }
