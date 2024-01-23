@@ -11,6 +11,23 @@
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
         grid-gap: 2rem
         padding: 2rem 1rem 6rem 1rem
+        &__tags
+            display: flex
+            flex-wrap: wrap
+            gap: 0.5rem
+            padding: 0
+            .tags
+                padding: 0 1rem
+                display: flex
+                gap: 0.5rem
+                .tag
+                    list-style: none
+                    background-color: $color-font-title
+                    padding: 17px 18px
+                    border-radius: 10px
+                    font-size: 0.75rem
+                    color: $color-dark
+                    cursor: pointer
 
     &-container
         max-width: 380px

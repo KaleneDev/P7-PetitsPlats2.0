@@ -431,6 +431,26 @@ body {
   grid-gap: 2rem;
   padding: 2rem 1rem 6rem 1rem;
 }
+.recipe-list__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+}
+.recipe-list__tags .tags {
+  padding: 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.recipe-list__tags .tags .tag {
+  list-style: none;
+  background-color: #FFD15B;
+  padding: 17px 18px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: #1a1a1a;
+  cursor: pointer;
+}
 .recipe-container {
   max-width: 380px;
   max-height: 731px;

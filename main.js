@@ -4,7 +4,6 @@ import { initData, getAllRecipes } from "./utils/dataManager.js";
 import { AppComponent } from "./components/App.js";
 import { setupSearchInput } from "./components/SearchBar.js";
 
-
 async function init() {
     const main = document.querySelector("#main");
 

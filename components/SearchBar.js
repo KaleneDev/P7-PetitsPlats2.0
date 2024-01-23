@@ -1,7 +1,9 @@
 import jsxParser from "../utils/jsxParser.js";
-import { searchRecipes } from "../utils/dataManager.js";
-import { updateRecipeList } from "../utils/dataManager.js";
+import { getAllRecipes } from "../utils/dataManager.js";
+import { updateRecipeList, searchRecipes } from "../utils/SearchRecipes.js";
+import { findMatchingElements, updateTags } from "../utils/SearchTags.js";
 import cleanString from "../utils/cleanString.js";
+import { TagsComponent } from "./Tags.js";
 
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
@@ -18,10 +20,19 @@ export function setupSearchInput() {
         searchInput.addEventListener("input", (event) => {
             const searchTerm = event.target.value;
             const cleanSearchTerm = cleanString(searchTerm);
-            if (cleanSearchTerm.length >= 3) {
-                const filteredRecipes = searchRecipes(cleanSearchTerm);
-                updateRecipeList(filteredRecipes);
+            // Divise en mots et filtre ceux ayant au moins 3 caractères
+            const searchTerms = cleanSearchTerm
+                .split(" ")
+                .filter((word) => word.length >= 3);
+    
 
+            const filteredRecipes = searchRecipes(cleanSearchTerm);
+            
+            const matchedElements = findMatchingElements(filteredRecipes, searchTerms);
+
+            if (searchTerms.length > 0) {
+                updateRecipeList(filteredRecipes);
+                updateTags(matchedElements);
                 if (filteredRecipes.length === 0) {
                     // Supprime la liste des recettes
                     const listRecipes = document.querySelector(".recipe-list");
@@ -36,13 +47,23 @@ export function setupSearchInput() {
                     listRecipeContainer.appendChild(message);
                 }
             } else {
-                // const listRecipeContainer = document.getElementById(
-                //     "recipe-list-container"
-                // );
-                // const message = document.createElement("div");
-                // message.classList.add("message");
-                // message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-                // listRecipeContainer.appendChild(message);
+                // Supprime la liste des recettes
+                if (cleanSearchTerm.length === 0) {
+                    //    get all
+                    const allRecipes = getAllRecipes();
+                    updateRecipeList(allRecipes);
+                } else {
+                    const listRecipeContainer = document.getElementById(
+                        "recipe-list-container"
+                    );
+                    if (listRecipeContainer.querySelector(".message")) {
+                        listRecipeContainer.querySelector(".message").remove();
+                    }
+                    const message = document.createElement("div");
+                    message.classList.add("message");
+                    message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+                    listRecipeContainer.appendChild(message);
+                }
             }
         });
     }

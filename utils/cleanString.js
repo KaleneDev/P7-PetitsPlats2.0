@@ -1,6 +1,6 @@
-// clean String injectée
 function cleanString(string) {
-    return string.replace(/[^a-zA-Z0-9]/g, "");
+    // Conserve les lettres (y compris les lettres accentuées) et les espaces, exclut les chiffres
+    return string.replace(/[^a-zA-Z\u00C0-\u00FF ]/g, "");
 }
 
 export default cleanString;
