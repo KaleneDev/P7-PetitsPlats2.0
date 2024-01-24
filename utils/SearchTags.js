@@ -2,6 +2,7 @@ import { recipesData } from "./dataManager.js";
 import { TagsComponent } from "../components/Tags.js";
 
 export function findMatchingElements(filteredRecipes, searchTerms) {
+    console.log(searchTerms);
     let matchedIngredients = new Set();
     let matchedAppliances = new Set();
     let matchedUstensils = new Set();

@@ -24,13 +24,13 @@ export function setupSearchInput() {
             const searchTerms = cleanSearchTerm
                 .split(" ")
                 .filter((word) => word.length >= 3);
-    
-
-            const filteredRecipes = searchRecipes(cleanSearchTerm);
-            
-            const matchedElements = findMatchingElements(filteredRecipes, searchTerms);
 
             if (searchTerms.length > 0) {
+                const filteredRecipes = searchRecipes(cleanSearchTerm);
+                const matchedElements = findMatchingElements(
+                    filteredRecipes,
+                    searchTerms
+                );
                 updateRecipeList(filteredRecipes);
                 updateTags(matchedElements);
                 if (filteredRecipes.length === 0) {
