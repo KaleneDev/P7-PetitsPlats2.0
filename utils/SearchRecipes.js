@@ -5,7 +5,7 @@ import { setRecipeList } from "./dataManager.js";
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
     const searchTerms = searchTerm.toLowerCase().split(" ");
-    console.log(searchTerms);
+    
     return recipesData.filter((recipe) =>
         searchTerms.every(
             (term) =>

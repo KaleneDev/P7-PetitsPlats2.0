@@ -1,9 +1,9 @@
 // components/HeaderComponent.js
 import jsxParser from "../utils/jsxParser.js";
-import { SearchBarComponent } from "./searchBar.js";
+import { SearchBarComponent } from "./SearchBar.js";
 
-export function HeaderComponent(recipes) {
-    return jsxParser/*html*/`
+export function HeaderComponent() {
+    return jsxParser/*html*/ `
         <header class="site-header">
             <div class="site-header__wrapper">
                 <div class="site-header__background"></div>

@@ -3,7 +3,6 @@ import { getAllRecipes } from "../utils/dataManager.js";
 import { updateRecipeList, searchRecipes } from "../utils/SearchRecipes.js";
 import { findMatchingElements, updateTags } from "../utils/SearchTags.js";
 import cleanString from "../utils/cleanString.js";
-import { TagsComponent } from "./Tags.js";
 
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
@@ -21,16 +20,11 @@ export function setupSearchInput() {
             const searchTerm = event.target.value;
             const cleanSearchTerm = cleanString(searchTerm);
             // Divise en mots et filtre ceux ayant au moins 3 caractères
-            const searchTerms = cleanSearchTerm
-                .split(" ")
-                .filter((word) => word.length >= 3);
 
-            if (searchTerms.length > 0) {
+            if (searchTerm.length > 3) {
                 const filteredRecipes = searchRecipes(cleanSearchTerm);
-                const matchedElements = findMatchingElements(
-                    filteredRecipes,
-                    searchTerms
-                );
+
+                const matchedElements = findMatchingElements(filteredRecipes);
                 updateRecipeList(filteredRecipes);
                 updateTags(matchedElements);
                 if (filteredRecipes.length === 0) {

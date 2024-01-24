@@ -439,7 +439,7 @@ body {
 }
 .recipe-list__tags .tags {
   padding: 0 1rem;
-  display: flex;
+  display: grid;
   gap: 0.5rem;
 }
 .recipe-list__tags .tags .tag {
