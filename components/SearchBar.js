@@ -1,9 +1,19 @@
 import jsxParser from "../utils/jsxParser.js";
 import { getAllRecipes } from "../utils/dataManager.js";
-import { updateRecipeList, searchRecipes } from "../utils/SearchRecipes.js";
+import {
+    updateRecipeList,
+    updateAllRecipeList,
+    searchRecipes,
+} from "../utils/SearchRecipes.js";
 import { findMatchingElements, updateTags } from "../utils/SearchTags.js";
 import cleanString from "../utils/cleanString.js";
+import { matchedElements } from "../utils/SearchTags.js";
 
+export let filteredRecipes = [];
+
+export function setFilteredRecipes(newFilteredRecipes) {
+    filteredRecipes = newFilteredRecipes;
+}
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
         <div class="search-bar">
@@ -22,11 +32,13 @@ export function setupSearchInput() {
             // Divise en mots et filtre ceux ayant au moins 3 caractères
 
             if (searchTerm.length > 3) {
-                const filteredRecipes = searchRecipes(cleanSearchTerm);
+                filteredRecipes = searchRecipes(cleanSearchTerm);
 
-                const matchedElements = findMatchingElements(filteredRecipes);
-                updateRecipeList(filteredRecipes);
+                findMatchingElements(filteredRecipes);
+
+                updateRecipeList(filteredRecipes, matchedElements);
                 updateTags(matchedElements);
+
                 if (filteredRecipes.length === 0) {
                     // Supprime la liste des recettes
                     const listRecipes = document.querySelector(".recipe-list");
@@ -45,7 +57,7 @@ export function setupSearchInput() {
                 if (cleanSearchTerm.length === 0) {
                     //    get all
                     const allRecipes = getAllRecipes();
-                    updateRecipeList(allRecipes);
+                    updateAllRecipeList(allRecipes);
                 } else {
                     const listRecipeContainer = document.getElementById(
                         "recipe-list-container"

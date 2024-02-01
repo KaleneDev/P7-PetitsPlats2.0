@@ -18,8 +18,22 @@
             padding: 0
             .tags
                 padding: 0 1rem
-                display: grid
-                gap: 0.5rem
+                display: flex
+                gap: 3rem
+                & > ul
+                    padding: 0
+                    min-width: 150px
+                    display: flex
+                    flex-direction: column
+                    gap: 0.5rem
+                    li
+                        svg
+                            height: 15px
+                            cursor: pointer
+                            z-index: 100
+                            path
+                                z-index: -100
+
                 .tag
                     list-style: none
                     background-color: $color-font-title
@@ -27,7 +41,8 @@
                     border-radius: 10px
                     font-size: 0.75rem
                     color: $color-dark
-                    cursor: pointer
+                    display: flex
+                    justify-content: space-between
 
     &-container
         max-width: 380px

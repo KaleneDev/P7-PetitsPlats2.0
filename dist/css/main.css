@@ -439,8 +439,23 @@ body {
 }
 .recipe-list__tags .tags {
   padding: 0 1rem;
-  display: grid;
+  display: flex;
+  gap: 3rem;
+}
+.recipe-list__tags .tags > ul {
+  padding: 0;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
   gap: 0.5rem;
+}
+.recipe-list__tags .tags > ul li svg {
+  height: 15px;
+  cursor: pointer;
+  z-index: 100;
+}
+.recipe-list__tags .tags > ul li svg path {
+  z-index: -100;
 }
 .recipe-list__tags .tags .tag {
   list-style: none;
@@ -449,7 +464,8 @@ body {
   border-radius: 10px;
   font-size: 0.75rem;
   color: #1a1a1a;
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 }
 .recipe-container {
   max-width: 380px;
