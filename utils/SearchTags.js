@@ -4,9 +4,9 @@ import { getRecipeList } from "./dataManager.js";
 import { removeTag, getTags, setTags } from "./SearchFilters.js";
 let matchedElements = [];
 
-export function getMatchedElements(filteredRecipes) {
-    if (filteredRecipes) {
-        return findMatchingElements(filteredRecipes);
+export function getMatchedElements() {
+    if (getRecipeList()) {
+        return findMatchingElements(getRecipeList());
     }
     return matchedElements;
 }

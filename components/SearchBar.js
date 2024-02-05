@@ -21,7 +21,7 @@ export function SearchBarComponent() {
 export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
 
-    updateFilter(getMatchedElements(getRecipeList()));
+    updateFilter(getMatchedElements());
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
@@ -35,7 +35,7 @@ export function setupSearchInput() {
 
                 updateRecipeList(getRecipeList(), getTags());
 
-                updateFilter(getMatchedElements(getRecipeList()));
+                updateFilter(getMatchedElements());
 
                 if (getRecipeList().length === 0) {
                     // Supprime la liste des recettes
@@ -59,7 +59,7 @@ export function setupSearchInput() {
                     //    get all
                     const allRecipes = getAllRecipes();
                     updateRecipeList(allRecipes, getTags());
-                    updateFilter(getMatchedElements(getRecipeList()));
+                    updateFilter(getMatchedElements());
                 } else {
                     const listRecipeContainer = document.getElementById(
                         "recipe-list-container"
