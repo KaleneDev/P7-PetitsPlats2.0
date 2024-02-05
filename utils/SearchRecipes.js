@@ -1,13 +1,12 @@
 import { RecipeListComponent } from "../components/RecipeList.js";
-import { recipesData } from "./dataManager.js";
-import { setRecipeList } from "./dataManager.js";
+import { setRecipeList, getRecipeList } from "./dataManager.js";
 import { setFilteredRecipes } from "../components/SearchBar.js";
-
+import { findMatchingElements } from "./SearchTags.js";
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
     const searchTerms = searchTerm.toLowerCase().split(" ");
 
-    return recipesData.filter((recipe) =>
+    return getRecipeList().filter((recipe) =>
         searchTerms.every(
             (term) =>
                 recipe.name.toLowerCase().includes(term) ||
@@ -20,54 +19,60 @@ export function searchRecipes(searchTerm) {
 }
 
 // Fonction pour mettre à jour la liste des recettes
-export function updateRecipeList(recipes, matchedElements) {
-    function filterRecipes(recipes, matchedElements) {
+export function updateRecipeList(recipes, tags) {
+    // Fonction pour filtrer les recettes en fonction des tags
+    const filterRecipes = (recipes, tags) => {
         return recipes.filter((recipe) => {
-            // Vérifie si chaque ingrédient de la recette est présent dans matchedElements.ingredients
-            const ingredientMatch = recipe.ingredients.every(
-                (recipeIngredient) =>
-                    matchedElements.ingredients.includes(
-                        recipeIngredient.ingredient
-                    )
+            // Vérifie si chaque ingrédient de la recette est présent dans tags.ingredients
+            const ingredientMatch = tags.ingredients.length === 0 || tags.ingredients.every(tagIngredient =>
+                recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient === tagIngredient)
             );
-
-            // Vérifie si l'appareil de la recette est présent dans matchedElements.appliances
-            const applianceMatch = matchedElements.appliances.includes(
-                recipe.appliance
+    
+            // Vérifie si l'appareil de la recette est présent dans tags.appliances
+            const applianceMatch = tags.appliances.length === 0 || tags.appliances.includes(recipe.appliance);
+    
+            // Vérifie si chaque ustensile de la recette est présent dans tags.ustensils
+            const utensilMatch = tags.ustensils.length === 0 || tags.ustensils.every(tagUtensil =>
+                recipe.ustensils.includes(tagUtensil)
             );
-
-            // Vérifie si chaque ustensile de la recette est présent dans matchedElements.ustensils
-            const utensilMatch = recipe.ustensils.every((utensil) =>
-                matchedElements.ustensils.includes(utensil)
-            );
-
+    
             // Une recette doit respecter tous les critères pour être incluse
             return ingredientMatch && applianceMatch && utensilMatch;
         });
-    }
-    const RecipesIncludeTags = filterRecipes(recipes, matchedElements);
-    setFilteredRecipes(RecipesIncludeTags);
+    };
+    
+    console.log("recipes", recipes);
+    console.log("tags", tags);
 
-    const recipeListElement = RecipeListComponent(RecipesIncludeTags); // Cela devrait être un élément DOM
-    const container = document.getElementById("recipe-list-container");
+    const filteredRecipes = filterRecipes(recipes, tags);
+
+    console.log(filteredRecipes);
+    // Met à jour la liste des recettes affichées
+    const recipeListElement = RecipeListComponent(filteredRecipes); // Supposons que cette fonction met à jour l'affichage
+
+    const container = document.querySelector(".recipe-list");
+
+    if (!container) {
+        // create container
+        console.log("container not found");
+    }
+
     if (container) {
-        // Vide le conteneur existant
-        container.innerHTML = "";
-        // ecrase le contenu du conteneur
-        container.innerHTML = recipeListElement.innerHTML;
+        container.parentNode.replaceChild(recipeListElement, container);
     }
 
-    setRecipeList(recipes);
+    // Cette ligne semble ne pas être utilisée dans le contexte actuel
+    // setRecipeList(recipes);
 }
 
 export function updateAllRecipeList(recipes) {
     const recipeListElement = RecipeListComponent(recipes); // Cela devrait être un élément DOM
-    const container = document.getElementById("recipe-list-container");
+    const container = document.getElementById("recipe-list");
     if (container) {
         // Vide le conteneur existant
         container.innerHTML = "";
         // ecrase le contenu du conteneur
-        container.innerHTML = recipeListElement.innerHTML;
+        container.innerHTML = recipeListElement.outerHTML;
     }
 
     setRecipeList(recipes);

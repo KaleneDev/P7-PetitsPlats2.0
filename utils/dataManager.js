@@ -1,5 +1,16 @@
-export let recipesData = [];
+let recipeListAll = [];
 let recipeList = [];
+
+export async function initData() {
+    try {
+        const response = await fetch("../data/recipes.json");
+        let recipesData = await response.json();
+        recipeListAll = recipesData;
+        setRecipeList(recipesData);
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 export function getRecipeList() {
     return recipeList;
@@ -9,22 +20,12 @@ export function setRecipeList(recipes) {
     recipeList = recipes;
 }
 
-export async function initData() {
-    try {
-        const response = await fetch("../data/recipes.json");
-        recipesData = await response.json();
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// Fonction pour obtenir toutes les recettes
 export function getAllRecipes() {
-    return recipesData;
+    return recipeListAll;
 }
 
 // Fonction pour récupérer une recette par son ID
 export function getRecipeById(id) {
-    return recipesData.find((recipe) => recipe.id === id);
+    return setRecipeList(recipesData).find((recipe) => recipe.id === id);
 }
 

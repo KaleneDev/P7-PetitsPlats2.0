@@ -1,0 +1,57 @@
+.filter
+    display: flex
+    gap: 4rem
+    &-list
+        padding: 2rem 1rem
+    &__container
+        background-color: $color-light
+        padding: 0
+        min-width: 220px
+        max-width: 220px
+        border-radius: 11px
+        height: 100%
+    &__list
+        padding: 0
+        margin: 0
+        display: flex
+        flex-direction: column
+        gap: 0.1rem
+        visibility: hidden
+        opacity: 0
+        height: 0
+        transition: 0.1s
+        max-height: 315px
+        overflow: hidden
+        overflow-y: auto
+        scrollbar-color: $color-font-title transparent
+        scrollbar-width: thin
+        &.open
+            visibility: visible
+            opacity: 1
+            height: auto
+            transition: 0.3s
+            padding: 0.5rem 0
+        &__title
+            display: flex
+            justify-content: space-between
+            align-items: center
+            padding: 1rem
+            cursor: pointer
+        .tag
+            list-style: none
+            font-size: 14px
+            display: flex
+            justify-content: space-between
+            padding: 0.5rem 1rem
+            cursor: pointer
+            transition: 0.15s
+            &.active
+                background-color: $color-font-title
+                font-weight: 900
+            &:hover
+                background-color: $color-font-title
+            span
+                cursor: pointer
+                transition: 0.3s
+  
+                

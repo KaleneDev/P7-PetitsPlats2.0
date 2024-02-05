@@ -429,7 +429,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 2rem;
-  padding: 2rem 1rem 6rem 1rem;
+  padding: 1rem 1rem 6rem 1rem;
 }
 .recipe-list__tags {
   display: flex;
@@ -527,4 +527,70 @@ body {
 }
 .recipe-container__content__ingredients__quantity > ul .quantityUnit {
   color: #7A7A7A;
+}
+
+.filter {
+  display: flex;
+  gap: 4rem;
+}
+.filter-list {
+  padding: 2rem 1rem;
+}
+.filter__container {
+  background-color: #fcfcfc;
+  padding: 0;
+  min-width: 220px;
+  max-width: 220px;
+  border-radius: 11px;
+  height: 100%;
+}
+.filter__list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  transition: 0.1s;
+  max-height: 315px;
+  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-color: #FFD15B transparent;
+  scrollbar-width: thin;
+}
+.filter__list.open {
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+  transition: 0.3s;
+  padding: 0.5rem 0;
+}
+.filter__list__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+.filter__list .tag {
+  list-style: none;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.filter__list .tag.active {
+  background-color: #FFD15B;
+  font-weight: 900;
+}
+.filter__list .tag:hover {
+  background-color: #FFD15B;
+}
+.filter__list .tag span {
+  cursor: pointer;
+  transition: 0.3s;
 }

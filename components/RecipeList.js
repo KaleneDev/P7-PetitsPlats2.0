@@ -1,7 +1,7 @@
 // components/RecipeListComponent.js
 import jsxParser from "../utils/jsxParser.js";
 import { limiteDescription } from "../utils/limiteDescription.js";
-import { TagsComponent } from "./Tags.js";
+
 export function RecipeListComponent(recipes) {
     const recipeItems = recipes
         .map(
@@ -54,13 +54,9 @@ export function RecipeListComponent(recipes) {
         .join("");
 
     return jsxParser/*html*/ `
-        <div id="recipe-list-container"> 
-            <div class="recipe-list__tags">
-            </div>
-            
-            <div class="recipe-list">
-                ${recipeItems}
-            </div>
+
+        <div class="recipe-list">
+            ${recipeItems}
         </div>
     `;
 }

@@ -1,19 +1,23 @@
 import jsxParser from "../utils/jsxParser.js";
-import { getAllRecipes } from "../utils/dataManager.js";
+import { getRecipeList, getAllRecipes } from "../utils/dataManager.js";
 import {
     updateRecipeList,
     updateAllRecipeList,
     searchRecipes,
 } from "../utils/SearchRecipes.js";
-import { findMatchingElements, updateTags } from "../utils/SearchTags.js";
+import { updateFilter, getTags } from "../utils/SearchFilters.js";
 import cleanString from "../utils/cleanString.js";
-import { matchedElements } from "../utils/SearchTags.js";
+import { getMatchedElements } from "../utils/SearchTags.js";
 
-export let filteredRecipes = [];
+let filteredRecipes = [];
 
+export function getFilteredRecipes() {
+    return filteredRecipes;
+}
 export function setFilteredRecipes(newFilteredRecipes) {
     filteredRecipes = newFilteredRecipes;
 }
+
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
         <div class="search-bar">
@@ -25,6 +29,9 @@ export function SearchBarComponent() {
 
 export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
+
+    updateFilter(getMatchedElements(getRecipeList()));
+
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
             const searchTerm = event.target.value;
@@ -34,15 +41,17 @@ export function setupSearchInput() {
             if (searchTerm.length > 3) {
                 filteredRecipes = searchRecipes(cleanSearchTerm);
 
-                findMatchingElements(filteredRecipes);
+                updateRecipeList(filteredRecipes, getTags());
 
-                updateRecipeList(filteredRecipes, matchedElements);
-                updateTags(matchedElements);
+                updateFilter(getMatchedElements());
 
                 if (filteredRecipes.length === 0) {
                     // Supprime la liste des recettes
                     const listRecipes = document.querySelector(".recipe-list");
-                    listRecipes.remove();
+                    listRecipes.innerHTML = "";
+                    if (document.querySelector(".message")) {
+                        document.querySelector(".message").remove();
+                    }
                     // Ajoute dans recipeList un message d'erreur
                     const listRecipeContainer = document.getElementById(
                         "recipe-list-container"
@@ -57,7 +66,8 @@ export function setupSearchInput() {
                 if (cleanSearchTerm.length === 0) {
                     //    get all
                     const allRecipes = getAllRecipes();
-                    updateAllRecipeList(allRecipes);
+                    updateRecipeList(allRecipes, getTags());
+                    updateFilter(getMatchedElements(getRecipeList()));
                 } else {
                     const listRecipeContainer = document.getElementById(
                         "recipe-list-container"
@@ -72,5 +82,7 @@ export function setupSearchInput() {
                 }
             }
         });
+    } else {
+        console.error("Search input not found");
     }
 }
