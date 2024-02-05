@@ -33,8 +33,5 @@ export function TagsComponent(tags) {
         </div>
     `;
 
-
     return tagsHtml;
 }
-
-

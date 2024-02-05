@@ -471,6 +471,7 @@ body {
   background-color: #fcfcfc;
   border-radius: 14px;
   position: relative;
+  margin: auto;
 }
 .recipe-container__image {
   height: 100%;
@@ -529,6 +530,9 @@ body {
 .filter {
   display: flex;
   gap: 4rem;
+  z-index: 100;
+  position: relative;
+  max-height: 50px;
 }
 .filter-list {
   padding: 2rem 1rem;
@@ -543,6 +547,8 @@ body {
 }
 .filter__container.open {
   border-radius: 11px 11px 0 0;
+  border-radius: 11px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 .filter__list {
   padding: 0;
@@ -559,6 +565,8 @@ body {
   overflow-y: auto;
   scrollbar-color: #FFD15B transparent;
   scrollbar-width: thin;
+  min-width: 190px;
+  max-width: 190px;
 }
 .filter__list.open {
   visibility: visible;
@@ -566,7 +574,6 @@ body {
   height: auto;
   transition: 0.3s;
   padding: 0.5rem 0;
-  position: absolute;
   background-color: #fcfcfc;
   z-index: 100;
   border-radius: 0 0 11px 11px;
