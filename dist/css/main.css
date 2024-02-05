@@ -444,7 +444,8 @@ body {
 }
 .recipe-list__tags .tags > ul {
   padding: 0;
-  min-width: 150px;
+  min-width: 200px;
+  max-width: 200px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -461,6 +462,7 @@ body {
   color: #1a1a1a;
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
 }
 .recipe-container {
   max-width: 380px;
@@ -534,10 +536,13 @@ body {
 .filter__container {
   background-color: #fcfcfc;
   padding: 0;
-  min-width: 220px;
-  max-width: 220px;
+  min-width: 190px;
+  max-width: 190px;
   border-radius: 11px;
   height: 100%;
+}
+.filter__container.open {
+  border-radius: 11px 11px 0 0;
 }
 .filter__list {
   padding: 0;
@@ -561,6 +566,10 @@ body {
   height: auto;
   transition: 0.3s;
   padding: 0.5rem 0;
+  position: absolute;
+  background-color: #fcfcfc;
+  z-index: 100;
+  border-radius: 0 0 11px 11px;
 }
 .filter__list__title {
   display: flex;
@@ -584,8 +593,4 @@ body {
 }
 .filter__list .tag:hover {
   background-color: #FFD15B;
-}
-.filter__list .tag span {
-  cursor: pointer;
-  transition: 0.3s;
 }

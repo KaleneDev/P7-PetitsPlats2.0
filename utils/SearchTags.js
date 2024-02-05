@@ -74,7 +74,6 @@ export function addEventListenersToTags(tags) {
         button.addEventListener("click", (e) => {
             e.stopPropagation(); // Prévenir la propagation pour éviter les effets secondaires
             const tagElement = e.target.closest(".tag");
-            console.log(tagElement);
             if (tagElement) {
                 // Vérifie que tagElement n'est pas null
                 const tagName = tagElement.dataset.tag;
@@ -85,21 +84,11 @@ export function addEventListenersToTags(tags) {
                     : tagElement.classList.contains("ustensil")
                     ? "ustensils"
                     : null;
-                // if (tagType) {
-                //     // Supprimer le tag de matchedElements
-                //     const index = matchedElements[tagType].indexOf(tagName);
-                //     if (index > -1) {
-                //         matchedElements[tagType].splice(index, 1);
-                //     }
-                // }
-
-                console.log(getRecipeList());
-                console.log(getTags());
+       
                 removeTag(tagName, tagType);
                 tagElement.remove(); // Supprimer le tag de l'interface utilisateur
 
                 // Refiltrer et mettre à jour la liste des recettes
-                // updateTags(matchedElements);
                 updateRecipeList(getRecipeList(), getTags());
             }
         });

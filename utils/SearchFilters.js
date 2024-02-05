@@ -19,6 +19,11 @@ export function setTags(tag, type) {
 export function removeTag(tag, type) {
     // Supprime le tag du tableau spécifique
     tagsList[type] = tagsList[type].filter((t) => t !== tag);
+    const tagActive = document.querySelector(`.tag[data-tag="${tag}"]`);
+    if (tagActive) {
+        tagActive.classList.remove("active");
+        tagActive.removeChild(tagActive.querySelector(".tag-close")); // Supprime le span du DOM
+    }
 }
 export function updateFilter(tags) {
     const tagsElement = FilterComponent(tags);
@@ -39,6 +44,8 @@ export function openFilter() {
                 const list = e.target
                     .closest(".filter__container")
                     .querySelector(".filter__list");
+                const container = e.target.closest(".filter__container");
+                container.classList.toggle("open");
                 list.classList.toggle("open");
                 title.querySelector("span").classList.toggle("icon-chevron-up");
             });
@@ -68,8 +75,7 @@ export function tagActive() {
                     e.stopPropagation(); // Empêche le clic de se propager
                     const tag = this.closest(".tag");
                     if (tag) {
-                        tag.classList.remove("active");
-                        tag.removeChild(this); // Supprime le span du DOM
+                        // tag.removeChild(this); // Supprime le span du DOM
                         // Mise à jour de l'état des tags
                         removeTag(tag.dataset.tag, type);
                         updateTags(getTags());
