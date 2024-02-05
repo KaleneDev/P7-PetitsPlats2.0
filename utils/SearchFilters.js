@@ -25,7 +25,6 @@ export function updateFilter(tags) {
     const container = document.querySelector(".filter-list");
 
     if (container) {
-
         container.parentNode.replaceChild(tagsElement, container);
     }
     openFilter();
@@ -79,11 +78,8 @@ export function tagActive() {
                 this.appendChild(span);
                 // Supposons que setTags ajoute le tag à une liste de tags actifs
                 setTags(this.dataset.tag, type);
-            } else {
-                // Gestion de la désactivation d'un tag
-                this.classList.remove("active");
-                removeTag(this.dataset.tag, type); // Retire le tag si déjà actif et cliqué à nouveau
             }
+
             updateTags(getTags());
         });
     });

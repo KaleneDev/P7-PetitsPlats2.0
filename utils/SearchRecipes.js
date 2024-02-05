@@ -1,7 +1,6 @@
 import { RecipeListComponent } from "../components/RecipeList.js";
 import { setRecipeList, getRecipeList } from "./dataManager.js";
-import { setFilteredRecipes } from "../components/SearchBar.js";
-import { findMatchingElements } from "./SearchTags.js";
+
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
     const searchTerms = searchTerm.toLowerCase().split(" ");
@@ -41,12 +40,11 @@ export function updateRecipeList(recipes, tags) {
         });
     };
     
-    console.log("recipes", recipes);
-    console.log("tags", tags);
+    // console.log("recipes", recipes);
+    // console.log("tags", tags);
 
     const filteredRecipes = filterRecipes(recipes, tags);
 
-    console.log(filteredRecipes);
     // Met à jour la liste des recettes affichées
     const recipeListElement = RecipeListComponent(filteredRecipes); // Supposons que cette fonction met à jour l'affichage
 

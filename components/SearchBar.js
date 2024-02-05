@@ -1,22 +1,13 @@
 import jsxParser from "../utils/jsxParser.js";
-import { getRecipeList, getAllRecipes } from "../utils/dataManager.js";
 import {
-    updateRecipeList,
-    updateAllRecipeList,
-    searchRecipes,
-} from "../utils/SearchRecipes.js";
+    getRecipeList,
+    setRecipeList,
+    getAllRecipes,
+} from "../utils/dataManager.js";
+import { updateRecipeList, searchRecipes } from "../utils/SearchRecipes.js";
 import { updateFilter, getTags } from "../utils/SearchFilters.js";
 import cleanString from "../utils/cleanString.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
-
-let filteredRecipes = [];
-
-export function getFilteredRecipes() {
-    return filteredRecipes;
-}
-export function setFilteredRecipes(newFilteredRecipes) {
-    filteredRecipes = newFilteredRecipes;
-}
 
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
@@ -39,13 +30,14 @@ export function setupSearchInput() {
             // Divise en mots et filtre ceux ayant au moins 3 caractères
 
             if (searchTerm.length > 3) {
-                filteredRecipes = searchRecipes(cleanSearchTerm);
+                const filteredRecipes = searchRecipes(cleanSearchTerm);
+                setRecipeList(filteredRecipes);
 
-                updateRecipeList(filteredRecipes, getTags());
+                updateRecipeList(getRecipeList(), getTags());
 
-                updateFilter(getMatchedElements());
+                updateFilter(getMatchedElements(getRecipeList()));
 
-                if (filteredRecipes.length === 0) {
+                if (getRecipeList().length === 0) {
                     // Supprime la liste des recettes
                     const listRecipes = document.querySelector(".recipe-list");
                     listRecipes.innerHTML = "";

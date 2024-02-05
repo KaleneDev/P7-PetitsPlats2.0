@@ -6,7 +6,7 @@ function generateTagsList(tags, className) {
             (tag) => /*html*/ `
         <li class="tag ${className}" data-tag="${tag}">
             ${tag}
-            <span class="icon-xmark"></span>
+            <span class="icon-xmark close-tag"></span>
         </li>
     `
         )

@@ -449,13 +449,8 @@ body {
   flex-direction: column;
   gap: 0.5rem;
 }
-.recipe-list__tags .tags > ul li svg {
-  height: 15px;
+.recipe-list__tags .tags > ul li span {
   cursor: pointer;
-  z-index: 100;
-}
-.recipe-list__tags .tags > ul li svg path {
-  z-index: -100;
 }
 .recipe-list__tags .tags .tag {
   list-style: none;

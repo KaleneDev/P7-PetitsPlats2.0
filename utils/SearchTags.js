@@ -1,8 +1,7 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
-import { getFilteredRecipes } from "../components/SearchBar.js";
 import { getRecipeList } from "./dataManager.js";
-
+import { removeTag, getTags, setTags } from "./SearchFilters.js";
 let matchedElements = [];
 
 export function getMatchedElements(filteredRecipes) {
@@ -59,20 +58,23 @@ export function updateTags(tags) {
         tagsContainer.innerHTML = ""; // Nettoie le conteneur pour les mises à jour
         tagsContainer.appendChild(tagsElement);
     }
-    if (!getFilteredRecipes().length === 0) {
-        updateRecipeList(getFilteredRecipes(), tags);
+    if (!getRecipeList().length === 0) {
+        updateRecipeList(getRecipeList(), tags);
     } else {
         updateRecipeList(getRecipeList(), tags);
     }
-    addEventListenersToTags();
+    addEventListenersToTags(tags);
 }
 
-export function addEventListenersToTags() {
-    const closeButtons = document.querySelectorAll(".tag-close");
+export function addEventListenersToTags(tags) {
+    const tagsContainer = document.querySelector(".recipe-list__tags");
+    const closeButtons = tagsContainer.querySelectorAll(".close-tag");
+
     closeButtons.forEach((button) => {
         button.addEventListener("click", (e) => {
             e.stopPropagation(); // Prévenir la propagation pour éviter les effets secondaires
             const tagElement = e.target.closest(".tag");
+            console.log(tagElement);
             if (tagElement) {
                 // Vérifie que tagElement n'est pas null
                 const tagName = tagElement.dataset.tag;
@@ -83,20 +85,22 @@ export function addEventListenersToTags() {
                     : tagElement.classList.contains("ustensil")
                     ? "ustensils"
                     : null;
+                // if (tagType) {
+                //     // Supprimer le tag de matchedElements
+                //     const index = matchedElements[tagType].indexOf(tagName);
+                //     if (index > -1) {
+                //         matchedElements[tagType].splice(index, 1);
+                //     }
+                // }
 
-                if (tagType) {
-                    // Supprimer le tag de matchedElements
-                    const index = matchedElements[tagType].indexOf(tagName);
-                    if (index > -1) {
-                        matchedElements[tagType].splice(index, 1);
-                    }
-                }
-
+                console.log(getRecipeList());
+                console.log(getTags());
+                removeTag(tagName, tagType);
                 tagElement.remove(); // Supprimer le tag de l'interface utilisateur
 
                 // Refiltrer et mettre à jour la liste des recettes
-                updateRecipeList(getFilteredRecipes(), matchedElements);
-                updateTags(matchedElements);
+                // updateTags(matchedElements);
+                updateRecipeList(getRecipeList(), getTags());
             }
         });
     });

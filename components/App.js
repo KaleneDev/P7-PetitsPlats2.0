@@ -6,6 +6,7 @@ import { FilterComponent } from "./Filter.js";
 import { MainComponent } from "./Main.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
 
+
 export function AppComponent(recipes) {
     const app = document.createElement("div");
     app.className = "app-container";
