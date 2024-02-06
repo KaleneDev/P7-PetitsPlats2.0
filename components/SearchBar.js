@@ -31,6 +31,8 @@ export function setupSearchInput() {
 
             if (searchTerm.length > 3) {
                 const filteredRecipes = searchRecipes(cleanSearchTerm);
+                console.log(filteredRecipes);
+                
                 setRecipeList(filteredRecipes);
 
                 updateRecipeList(getRecipeList(), getTags());
@@ -60,6 +62,7 @@ export function setupSearchInput() {
                     const allRecipes = getAllRecipes();
                     updateRecipeList(allRecipes, getTags());
                     updateFilter(getMatchedElements());
+                    setRecipeList(allRecipes);
                 } else {
                     const listRecipeContainer = document.getElementById(
                         "recipe-list-container"

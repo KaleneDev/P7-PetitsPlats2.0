@@ -1,21 +1,23 @@
 import { RecipeListComponent } from "../components/RecipeList.js";
-import { setRecipeList, getRecipeList } from "./dataManager.js";
+import { setRecipeList, getRecipeList,getAllRecipes } from "./dataManager.js";
 
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
     const searchTerms = searchTerm.toLowerCase().split(" ");
 
-    return getRecipeList().filter((recipe) =>
+    return getAllRecipes().filter((recipe) =>
         searchTerms.every(
-            (term) =>
-                recipe.name.toLowerCase().includes(term) ||
-                recipe.ingredients.some((ingredient) =>
-                    ingredient.ingredient.toLowerCase().includes(term)
-                ) ||
-                recipe.description.toLowerCase().includes(term)
+            (term) => {
+                return recipe.name.toLowerCase().includes(term) ||
+                    recipe.ingredients.some((ingredient) =>
+                        ingredient.ingredient.toLowerCase().includes(term)
+                    ) ||
+                    recipe.description.toLowerCase().includes(term);
+            }
         )
     );
 }
+
 
 // Fonction pour mettre à jour la liste des recettes
 export function updateRecipeList(recipes, tags) {
@@ -23,25 +25,31 @@ export function updateRecipeList(recipes, tags) {
     const filterRecipes = (recipes, tags) => {
         return recipes.filter((recipe) => {
             // Vérifie si chaque ingrédient de la recette est présent dans tags.ingredients
-            const ingredientMatch = tags.ingredients.length === 0 || tags.ingredients.every(tagIngredient =>
-                recipe.ingredients.some(recipeIngredient => recipeIngredient.ingredient === tagIngredient)
-            );
-    
+            const ingredientMatch =
+                tags.ingredients.length === 0 ||
+                tags.ingredients.every((tagIngredient) =>
+                    recipe.ingredients.some(
+                        (recipeIngredient) =>
+                            recipeIngredient.ingredient === tagIngredient
+                    )
+                );
+
             // Vérifie si l'appareil de la recette est présent dans tags.appliances
-            const applianceMatch = tags.appliances.length === 0 || tags.appliances.includes(recipe.appliance);
-    
+            const applianceMatch =
+                tags.appliances.length === 0 ||
+                tags.appliances.includes(recipe.appliance);
+
             // Vérifie si chaque ustensile de la recette est présent dans tags.ustensils
-            const utensilMatch = tags.ustensils.length === 0 || tags.ustensils.every(tagUtensil =>
-                recipe.ustensils.includes(tagUtensil)
-            );
-    
+            const utensilMatch =
+                tags.ustensils.length === 0 ||
+                tags.ustensils.every((tagUtensil) =>
+                    recipe.ustensils.includes(tagUtensil)
+                );
+
             // Une recette doit respecter tous les critères pour être incluse
             return ingredientMatch && applianceMatch && utensilMatch;
         });
     };
-    
-    // console.log("recipes", recipes);
-    // console.log("tags", tags);
 
     const filteredRecipes = filterRecipes(recipes, tags);
 
