@@ -37,10 +37,10 @@ export function updateRecipeList(recipes, tags) {
             // Vérifie si l'appareil de la recette est présent dans tags.appliances, en ignorant les majuscules
             const applianceMatch =
                 tags.appliances.length === 0 ||
-                tags.appliances.includes(
-                    recipe.appliance.toLowerCase(),
-                    tags.appliances.map((appliance) => appliance.toLowerCase())
-                );
+                tags.appliances
+                    .map((appliance) => appliance.toLowerCase())
+                    .includes(recipe.appliance.toLowerCase());
+
 
             // Vérifie si chaque ustensile de la recette est présent dans tags.ustensils, en ignorant les majuscules
             const utensilMatch =
@@ -50,7 +50,6 @@ export function updateRecipeList(recipes, tags) {
                         .map((utensil) => utensil.toLowerCase())
                         .includes(tagUtensil.toLowerCase())
                 );
-
             // Une recette doit respecter tous les critères pour être incluse
             return ingredientMatch && applianceMatch && utensilMatch;
         });

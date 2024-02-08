@@ -601,3 +601,7 @@ body {
 .filter__list .tag:hover {
   background-color: #FFD15B;
 }
+.filter__input {
+  margin: 8px 6px 8px 16px;
+  padding: 8px 8px;
+}

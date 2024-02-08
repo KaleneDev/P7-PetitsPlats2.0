@@ -46,7 +46,7 @@ export function updateFilter(tags) {
             listItems.forEach((tag) => {
                 const tagText = tag.textContent.toLowerCase();
                 if (tagText.includes(searchTerm.toLowerCase())) {
-                    tag.style.display = "block";
+                    tag.style.display = "flex";
                 } else {
                     tag.style.display = "none";
                 }
@@ -97,7 +97,6 @@ export function tagActive() {
                     e.stopPropagation(); // Empêche le clic de se propager
                     const tag = this.closest(".tag");
                     if (tag) {
-                        // tag.removeChild(this); // Supprime le span du DOM
                         // Mise à jour de l'état des tags
                         removeTag(tag.dataset.tag, type);
                         updateTags(getTags());
