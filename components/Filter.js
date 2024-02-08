@@ -14,29 +14,39 @@ function generateTagsList(tags, className) {
 }
 
 export function FilterComponent(tags) {
+ 
     const tagsHtml = jsxParser/*html*/ `
         <div class="filter-list">
             <div class="filter">
                 <div class="filter__container">
                     <span class="filter__list__title">Ingrédients <span class="icon-chevron-down"></span></span>
-                    <ul class="ingredient filter__list">${generateTagsList(
-                        tags.ingredients,
-                        "ingredient"
-                    )}</ul> 
+                    <ul class="ingredient filter__list">
+                        <input type="text"  class="filter__input" placeholder="Rechercher un ingrédient"/>
+                        ${generateTagsList(
+                            tags.ingredients,
+                            "ingredient"
+                        )}
+                    </ul> 
                 </div>
                 <div class="filter__container">
                     <span class="filter__list__title">Appareils <span class="icon-chevron-down"></span></span>
-                    <ul class="appliance filter__list">${generateTagsList(
-                        tags.appliances,
-                        "appliance"
-                    )}</ul>
+                    <ul class="appliance filter__list">
+                        <input type="text"  class="filter__input" placeholder="Rechercher un Appareil"/>
+                        ${generateTagsList(
+                            tags.appliances,
+                            "appliance"
+                        )}
+                    </ul>
                 </div>
                 <div class="filter__container">
                     <span class="filter__list__title">Ustensiles <span class="icon-chevron-down"></span></span>
-                    <ul class="ustensil filter__list">${generateTagsList(
-                        tags.ustensils,
-                        "ustensil"
-                    )}</ul>
+                    <ul class="ustensil filter__list">
+                        <input type="text"  class="filter__input" placeholder="Rechercher un ustensile"/>
+                        ${generateTagsList(
+                            tags.ustensils,
+                            "ustensil"
+                        )}
+                    </ul>
                 </div>
             </div>
         </div>

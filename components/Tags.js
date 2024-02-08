@@ -1,5 +1,5 @@
 import jsxParser from "../utils/jsxParser.js";
-
+import { getTags } from "../utils/SearchFilters.js";
 function generateTagsList(tags, className) {
     return tags
         .map(

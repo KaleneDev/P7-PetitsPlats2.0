@@ -1,7 +1,7 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
 import { getRecipeList } from "./dataManager.js";
-import { removeTag, getTags, setTags } from "./SearchFilters.js";
+import { removeTag, getTags } from "./SearchFilters.js";
 let matchedElements = [];
 
 export function getMatchedElements() {
@@ -11,36 +11,44 @@ export function getMatchedElements() {
     return matchedElements;
 }
 
-export function setMatchedElements(newMatchedElements) {
-    matchedElements = newMatchedElements;
-}
+// export function setMatchedElements(newMatchedElements) {
+//     matchedElements = newMatchedElements;
+// }
 
 export function findMatchingElements(filteredRecipes) {
-    let matchedIngredients = new Set();
-    let matchedAppliances = new Set();
-    let matchedUstensils = new Set();
+    let ingredientsMap = {};
+    let appliancesMap = {};
+    let ustensilsMap = {};
+
     filteredRecipes.forEach((recipe) => {
         recipe.ingredients.forEach((ingredient) => {
-            matchedIngredients.add(ingredient.ingredient);
+            const lowerIngredient = ingredient.ingredient.toLowerCase();
+            if (!ingredientsMap[lowerIngredient]) {
+                ingredientsMap[lowerIngredient] = ingredient.ingredient;
+            }
         });
-        matchedAppliances.add(recipe.appliance);
+
+        const lowerAppliance = recipe.appliance.toLowerCase();
+        if (!appliancesMap[lowerAppliance]) {
+            appliancesMap[lowerAppliance] = recipe.appliance;
+        }
 
         recipe.ustensils.forEach((ustensil) => {
-            matchedUstensils.add(ustensil);
+            const lowerUstensil = ustensil.toLowerCase();
+            if (!ustensilsMap[lowerUstensil]) {
+                ustensilsMap[lowerUstensil] = ustensil;
+            }
         });
     });
 
-    matchedElements = {
-        ingredients: Array.from(matchedIngredients),
-        appliances: Array.from(matchedAppliances),
-        ustensils: Array.from(matchedUstensils),
+    // Convertit les objets en tableaux de valeurs tout en préservant la casse originale
+    const matchedElements = {
+        ingredients: Object.values(ingredientsMap),
+        appliances: Object.values(appliancesMap),
+        ustensils: Object.values(ustensilsMap),
     };
 
-    return {
-        ingredients: Array.from(matchedIngredients),
-        appliances: Array.from(matchedAppliances),
-        ustensils: Array.from(matchedUstensils),
-    };
+    return matchedElements;
 }
 
 export function updateTags(tags) {
@@ -66,7 +74,7 @@ export function updateTags(tags) {
     addEventListenersToTags(tags);
 }
 
-export function addEventListenersToTags(tags) {
+export function addEventListenersToTags() {
     const tagsContainer = document.querySelector(".recipe-list__tags");
     const closeButtons = tagsContainer.querySelectorAll(".close-tag");
 
@@ -84,7 +92,7 @@ export function addEventListenersToTags(tags) {
                     : tagElement.classList.contains("ustensil")
                     ? "ustensils"
                     : null;
-       
+
                 removeTag(tagName, tagType);
                 tagElement.remove(); // Supprimer le tag de l'interface utilisateur
 

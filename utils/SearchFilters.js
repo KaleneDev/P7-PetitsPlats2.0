@@ -32,6 +32,28 @@ export function updateFilter(tags) {
     if (container) {
         container.parentNode.replaceChild(tagsElement, container);
     }
+
+    const filterInput = document.querySelectorAll(".filter__input");
+
+    filterInput.forEach((input) => {
+        input.addEventListener("input", (e) => {
+            const searchTerm = e.target.value;
+
+            const list = e.target
+                .closest(".filter__container")
+                .querySelector(".filter__list");
+            const listItems = list.querySelectorAll(".tag");
+            listItems.forEach((tag) => {
+                const tagText = tag.textContent.toLowerCase();
+                if (tagText.includes(searchTerm.toLowerCase())) {
+                    tag.style.display = "block";
+                } else {
+                    tag.style.display = "none";
+                }
+            });
+        });
+    });
+
     openFilter();
     tagActive();
 }
