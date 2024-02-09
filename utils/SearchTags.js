@@ -1,7 +1,7 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
 import { getRecipeList } from "./dataManager.js";
-import { removeTag, getTags } from "./SearchFilters.js";
+import { removeTag, getTags, tagActive } from "./SearchFilters.js";
 let matchedElements = [];
 
 export function getMatchedElements() {
@@ -101,4 +101,5 @@ export function addEventListenersToTags() {
             }
         });
     });
+    tagActive()
 }
