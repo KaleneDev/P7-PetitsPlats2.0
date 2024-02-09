@@ -52,7 +52,6 @@ export function findMatchingElements(filteredRecipes) {
 }
 
 export function updateTags(tags) {
-    console.log(tags);
     const tagsElement = TagsComponent(tags); // Supposons que ceci retourne un élément DOM
     const filterList = document.querySelector(".filter-list");
     let tagsContainer = document.querySelector(".recipe-list__tags");

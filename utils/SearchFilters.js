@@ -22,7 +22,9 @@ export function removeTag(tag, type) {
     const tagActive = document.querySelector(`.tag[data-tag="${tag}"]`);
     if (tagActive) {
         tagActive.classList.remove("active");
-        tagActive.removeChild(tagActive.querySelector(".tag-close")); // Supprime le span du DOM
+        if (tagActive.querySelector(".close-tag")) {
+            tagActive.removeChild(tagActive.querySelector(".close-tag")); // Supprime le span du DOM
+        }
     }
 }
 export function updateFilter(tags) {
@@ -90,8 +92,10 @@ export function tagActive() {
 
             if (!this.classList.contains("active")) {
                 this.classList.add("active");
+  
                 const span = document.createElement("span");
-                span.classList.add("icon-circle-xmark", "tag-close");
+                span.classList.add("icon-circle-xmark", "close-tag");
+
                 // Attacher un écouteur d'événements directement au span de fermeture
                 span.addEventListener("click", function (e) {
                     e.stopPropagation(); // Empêche le clic de se propager

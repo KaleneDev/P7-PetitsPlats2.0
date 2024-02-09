@@ -31,7 +31,6 @@ export function setupSearchInput() {
 
             if (searchTerm.length > 3) {
                 const filteredRecipes = searchRecipes(cleanSearchTerm);
-                console.log(filteredRecipes);
 
                 setRecipeList(filteredRecipes);
 
