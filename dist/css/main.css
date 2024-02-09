@@ -594,14 +594,20 @@ body {
   cursor: pointer;
   transition: 0.15s;
 }
+.filter__list .tag .close-tag {
+  display: none;
+}
 .filter__list .tag.active {
   background-color: #FFD15B;
   font-weight: 900;
+}
+.filter__list .tag.active .close-tag {
+  display: block;
 }
 .filter__list .tag:hover {
   background-color: #FFD15B;
 }
 .filter__input {
-  margin: 8px 6px 8px 16px;
+  margin: 8px 16px;
   padding: 8px 8px;
 }

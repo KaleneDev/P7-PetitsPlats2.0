@@ -57,11 +57,11 @@ export function setupSearchInput() {
             } else {
                 // Supprime la liste des recettes
                 if (cleanSearchTerm.length === 0) {
-                    //    get all
+                    // get all
                     const allRecipes = getAllRecipes();
+                    setRecipeList(allRecipes);
                     updateRecipeList(allRecipes, getTags());
                     updateFilter(getMatchedElements());
-                    setRecipeList(allRecipes);
                 } else if (getRecipeList().length === 0) {
                     const listRecipeContainer = document.getElementById(
                         "recipe-list-container"

@@ -59,11 +59,16 @@
             padding: 0.5rem 1rem
             cursor: pointer
             transition: 0.15s
+            .close-tag
+                display: none
             &.active
                 background-color: $color-font-title
                 font-weight: 900
+                .close-tag
+                    display: block
+         
             &:hover
                 background-color: $color-font-title
     &__input
-        margin: 8px 6px 8px 16px
+        margin: 8px 16px
         padding: 8px 8px
