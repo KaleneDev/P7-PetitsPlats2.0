@@ -75,26 +75,17 @@ export function updateTags(tags) {
 }
 export function updateTagsActif() {
     const tags = document.querySelectorAll(".tag");
-    for (let i = 0; i < tags.length; i++) {
-        const tag = tags[i];
-        const tagType = tag.classList[1];
+    tags.forEach((tag) => {
+        const tagType = tag.classList[1]; // Assume this is either 'ingredients', 'appliances', or 'ustensils'
         const tagName = tag.dataset.tag;
 
-        if (tagType === "ingredients") {
-            if (getTags().ingredients.includes(tagName)) {
-                tag.classList.add("active");
-            }
-        } else if (tagType === "appliances") {
-            if (getTags().appliances.includes(tagName)) {
-                tag.classList.add("active");
-            }
-        } else if (tagType === "ustensils") {
-            if (getTags().ustensils.includes(tagName)) {
-                tag.classList.add("active");
-            }
+        // Directement utiliser tagType pour accéder au tableau correspondant
+        if (getTags()[tagType] && getTags()[tagType].includes(tagName)) {
+            tag.classList.add("active");
         }
-    }
+    });
 }
+
 export function addEventListenersToTags() {
     const tagsContainer = document.querySelector(".recipe-list__tags");
     const closeButtons = tagsContainer.querySelectorAll(".close-tag");
