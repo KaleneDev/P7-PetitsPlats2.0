@@ -41,7 +41,6 @@ export function updateRecipeList(recipes, tags) {
                     .map((appliance) => appliance.toLowerCase())
                     .includes(recipe.appliance.toLowerCase());
 
-
             // Vérifie si chaque ustensile de la recette est présent dans tags.ustensils, en ignorant les majuscules
             const utensilMatch =
                 tags.ustensils.length === 0 ||
@@ -50,13 +49,15 @@ export function updateRecipeList(recipes, tags) {
                         .map((utensil) => utensil.toLowerCase())
                         .includes(tagUtensil.toLowerCase())
                 );
+
             // Une recette doit respecter tous les critères pour être incluse
             return ingredientMatch && applianceMatch && utensilMatch;
         });
     };
 
     const filteredRecipes = filterRecipes(recipes, tags);
-
+    setRecipeList(filteredRecipes);
+    console.log(filteredRecipes);
     // Met à jour la liste des recettes affichées
     const recipeListElement = RecipeListComponent(filteredRecipes); // Supposons que cette fonction met à jour l'affichage
 
@@ -72,7 +73,6 @@ export function updateRecipeList(recipes, tags) {
     }
 
     // Cette ligne semble ne pas être utilisée dans le contexte actuel
-    // setRecipeList(recipes);
 }
 
 export function updateAllRecipeList(recipes) {

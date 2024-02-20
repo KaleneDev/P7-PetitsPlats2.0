@@ -1,5 +1,7 @@
 import { FilterComponent } from "../components/Filter.js";
 import { updateTags, updateTagsActif } from "../utils/SearchTags.js";
+import { getMatchedElements } from "../utils/SearchTags.js";
+import { getRecipeList } from "./dataManager.js";
 
 let tagsList = {
     ingredients: [],
@@ -26,6 +28,7 @@ export function removeTag(tag, type) {
     }
 }
 export function updateFilter(tags) {
+
     const tagsElement = FilterComponent(tags);
     const container = document.querySelector(".filter-list");
 
@@ -92,22 +95,25 @@ export function tagActive() {
                 tag.classList.add("active");
                 // Supposons que setTags ajoute le tag à une liste de tags actifs
                 setTags(tag.dataset.tag, type);
+                updateTags(getTags());
+
+                updateFilter(getMatchedElements());
             }
-            // this.appendChild(closeSpan);
-            updateTags(getTags());
+
+            console.log("add tag");
         });
 
         const closeSpan = tag.querySelector(".close-tag");
         // Attacher un écouteur d'événements directement au span de fermeture
         closeSpan.addEventListener("click", function (e) {
-            console.log("click");
+            console.log("remove tag");
             e.stopPropagation(); // Empêche le clic de se propager
             const tag = this.closest(".tag");
-            console.log(tag);
             if (tag) {
                 // Mise à jour de l'état des tags
                 removeTag(tag.dataset.tag, type);
                 updateTags(getTags());
+                updateFilter(getMatchedElements());
             }
         });
     });

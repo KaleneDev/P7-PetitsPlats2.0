@@ -1,6 +1,6 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
-import { getRecipeList } from "./dataManager.js";
+import { getRecipeList, getAllRecipes } from "./dataManager.js";
 import { removeTag, getTags } from "./SearchFilters.js";
 let matchedElements = [];
 
@@ -66,13 +66,12 @@ export function updateTags(tags) {
         tagsContainer.innerHTML = ""; // Nettoie le conteneur pour les mises à jour
         tagsContainer.appendChild(tagsElement);
     }
-    if (!getRecipeList().length === 0) {
-        updateRecipeList(getRecipeList(), tags);
-    } else {
-        updateRecipeList(getRecipeList(), tags);
-    }
+
+    updateRecipeList(getAllRecipes(), tags);
+
     addEventListenersToTags(tags);
 }
+
 export function updateTagsActif() {
     const tags = document.querySelectorAll(".tag");
     tags.forEach((tag) => {
