@@ -1,5 +1,6 @@
 let recipeListAll = [];
 let recipeList = [];
+let nomberOfRecipes = 0;
 
 export async function initData() {
     try {
@@ -13,6 +14,11 @@ export async function initData() {
 }
 
 export function getRecipeList() {
+    setNomberOfRecipes(recipeList.length);
+    const nomberOfRecipes = document.querySelector("#number-of-recipes");
+    if (nomberOfRecipes) {
+        nomberOfRecipes.textContent = getNumberOfRecipes();
+    }
     return recipeList;
 }
 
@@ -29,3 +35,10 @@ export function getRecipeById(id) {
     return setRecipeList(recipesData).find((recipe) => recipe.id === id);
 }
 
+export function getNumberOfRecipes() {
+    return nomberOfRecipes;
+}
+
+export function setNomberOfRecipes(number) {
+    nomberOfRecipes = number;
+}

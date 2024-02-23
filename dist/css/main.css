@@ -533,9 +533,13 @@ body {
   z-index: 100;
   position: relative;
   max-height: 50px;
+  align-items: center;
 }
 .filter-list {
   padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .filter__container {
   background-color: #fcfcfc;
@@ -544,11 +548,17 @@ body {
   max-width: 190px;
   border-radius: 11px;
   height: 100%;
+  align-self: flex-start;
 }
 .filter__container.open {
   border-radius: 11px 11px 0 0;
   border-radius: 11px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.filter__numberOfRecipes span {
+  font-family: "Anton", sans-serif;
+  font-weight: 900;
+  font-size: 21px;
 }
 .filter__list {
   padding: 0;

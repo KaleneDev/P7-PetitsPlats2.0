@@ -28,12 +28,17 @@ export function removeTag(tag, type) {
     }
 }
 export function updateFilter(tags) {
-
     const tagsElement = FilterComponent(tags);
-    const container = document.querySelector(".filter-list");
+    const tagsElementList = tagsElement.querySelectorAll(".filter__container");
 
-    if (container) {
-        container.parentNode.replaceChild(tagsElement, container);
+    const container = document.querySelector(".filter-list");
+    const containerList = container.querySelectorAll(".filter__container");
+
+    for (let i = 0; i < containerList.length; i++) {
+        const currentList = containerList[i].querySelector(".filter__list");
+        const newList = tagsElementList[i].querySelector(".filter__list");
+
+        currentList.innerHTML = newList.innerHTML;
     }
     updateTagsActif();
     const filterInput = document.querySelectorAll(".filter__input");
@@ -96,7 +101,6 @@ export function tagActive() {
                 // Supposons que setTags ajoute le tag à une liste de tags actifs
                 setTags(tag.dataset.tag, type);
                 updateTags(getTags());
-
                 updateFilter(getMatchedElements());
             }
 

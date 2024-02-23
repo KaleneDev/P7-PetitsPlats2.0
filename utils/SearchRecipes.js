@@ -57,7 +57,6 @@ export function updateRecipeList(recipes, tags) {
 
     const filteredRecipes = filterRecipes(recipes, tags);
     setRecipeList(filteredRecipes);
-    console.log(filteredRecipes);
     // Met à jour la liste des recettes affichées
     const recipeListElement = RecipeListComponent(filteredRecipes); // Supposons que cette fonction met à jour l'affichage
 

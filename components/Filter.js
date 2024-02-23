@@ -1,4 +1,5 @@
 import jsxParser from "../utils/jsxParser.js";
+import { getNumberOfRecipes } from "../utils/dataManager.js";
 
 function generateTagsList(tags, className) {
     return tags
@@ -15,7 +16,6 @@ function generateTagsList(tags, className) {
 }
 
 export function FilterComponent(tags) {
- 
     const tagsHtml = jsxParser/*html*/ `
         <div class="filter-list">
             <div class="filter">
@@ -40,6 +40,10 @@ export function FilterComponent(tags) {
                         ${generateTagsList(tags.ustensils, "ustensils")}
                     </ul>
                 </div>
+                </div>
+            <div class="filter__numberOfRecipes">
+                <span id="number-of-recipes">${getNumberOfRecipes()}</span>
+                <span>recettes</span>
             </div>
         </div>
     `;
