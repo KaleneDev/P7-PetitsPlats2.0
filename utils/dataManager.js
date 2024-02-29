@@ -1,5 +1,6 @@
 let recipeListAll = [];
 let recipeList = [];
+let recipeListSearch = [];
 let nomberOfRecipes = 0;
 
 export async function initData() {
@@ -20,6 +21,14 @@ export function getRecipeList() {
         nomberOfRecipes.textContent = getNumberOfRecipes();
     }
     return recipeList;
+}
+
+export function getRecipListSearch() {
+    return recipeListSearch;
+}
+
+export function setRecipListSearch(recipes) {
+    recipeListSearch = recipes;
 }
 
 export function setRecipeList(recipes) {

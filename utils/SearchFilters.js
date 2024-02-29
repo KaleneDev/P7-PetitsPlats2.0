@@ -66,22 +66,28 @@ export function updateFilter(tags) {
     tagActive();
 }
 
+function openFilterHandler(e) {
+    const title = e.target.closest(".filter__list__title");
+
+    const list = e.target
+        .closest(".filter__container")
+        .querySelector(".filter__list");
+    const container = e.target.closest(".filter__container");
+    container.classList.toggle("open");
+    list.classList.toggle("open");
+    title.querySelector("span").classList.toggle("icon-chevron-up");
+}
+
 export function openFilter() {
     const filter = document.querySelectorAll(".filter__list__title");
     if (filter) {
         filter.forEach((title) => {
-            title.addEventListener("click", (e) => {
-                const list = e.target
-                    .closest(".filter__container")
-                    .querySelector(".filter__list");
-                const container = e.target.closest(".filter__container");
-                container.classList.toggle("open");
-                list.classList.toggle("open");
-                title.querySelector("span").classList.toggle("icon-chevron-up");
-            });
+            title.removeEventListener("click", openFilterHandler);
+            title.addEventListener("click", openFilterHandler);
         });
     }
 }
+
 export function tagActive() {
     const tags = document.querySelectorAll(
         ".tag.appliances, .tag.ingredients, .tag.ustensils"
@@ -104,19 +110,18 @@ export function tagActive() {
                 updateFilter(getMatchedElements());
             }
 
-            console.log("add tag");
         });
 
         const closeSpan = tag.querySelector(".close-tag");
         // Attacher un écouteur d'événements directement au span de fermeture
         closeSpan.addEventListener("click", function (e) {
-            console.log("remove tag");
             e.stopPropagation(); // Empêche le clic de se propager
             const tag = this.closest(".tag");
             if (tag) {
                 // Mise à jour de l'état des tags
                 removeTag(tag.dataset.tag, type);
                 updateTags(getTags());
+                // console.log(getRecipeList());
                 updateFilter(getMatchedElements());
             }
         });

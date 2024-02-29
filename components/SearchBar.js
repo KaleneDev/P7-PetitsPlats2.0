@@ -3,6 +3,7 @@ import {
     getRecipeList,
     setRecipeList,
     getAllRecipes,
+    setRecipListSearch,
 } from "../utils/dataManager.js";
 import { updateRecipeList, searchRecipes } from "../utils/SearchRecipes.js";
 import { updateFilter, getTags } from "../utils/SearchFilters.js";
@@ -33,9 +34,11 @@ export function setupSearchInput() {
                 const filteredRecipes = searchRecipes(cleanSearchTerm);
 
                 setRecipeList(filteredRecipes);
+                
+                console.log(filteredRecipes);
+                setRecipListSearch(filteredRecipes);
 
                 updateRecipeList(getRecipeList(), getTags());
-
                 updateFilter(getMatchedElements());
 
                 if (getRecipeList().length === 0) {
