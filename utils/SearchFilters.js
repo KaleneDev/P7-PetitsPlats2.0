@@ -1,7 +1,6 @@
 import { FilterComponent } from "../components/Filter.js";
 import { updateTags, updateTagsActif } from "../utils/SearchTags.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
-import { getRecipeList } from "./dataManager.js";
 
 let tagsList = {
     ingredients: [],
@@ -18,6 +17,7 @@ export function setTags(tag, type) {
         tagsList[type].push(tag);
     }
 }
+
 export function removeTag(tag, type) {
     // Supprime le tag du tableau spécifique
     tagsList[type] = tagsList[type].filter((t) => t !== tag);
@@ -27,6 +27,7 @@ export function removeTag(tag, type) {
         tagActive.classList.remove("active");
     }
 }
+
 export function updateFilter(tags) {
     const tagsElement = FilterComponent(tags);
     const tagsElementList = tagsElement.querySelectorAll(".filter__container");
@@ -46,6 +47,12 @@ export function updateFilter(tags) {
     filterInput.forEach((input) => {
         input.addEventListener("input", (e) => {
             const searchTerm = e.target.value;
+
+            if (searchTerm.length !== 0) {
+                e.target.nextElementSibling.style.display = "block";
+            } else {
+                e.target.nextElementSibling.style.display = "none";
+            }
 
             const list = e.target
                 .closest(".filter__container")
@@ -109,7 +116,6 @@ export function tagActive() {
                 updateTags(getTags());
                 updateFilter(getMatchedElements());
             }
-
         });
 
         const closeSpan = tag.querySelector(".close-tag");
@@ -121,7 +127,6 @@ export function tagActive() {
                 // Mise à jour de l'état des tags
                 removeTag(tag.dataset.tag, type);
                 updateTags(getTags());
-                // console.log(getRecipeList());
                 updateFilter(getMatchedElements());
             }
         });

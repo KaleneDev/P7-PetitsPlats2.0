@@ -15,7 +15,7 @@ export async function initData() {
 }
 
 export function getRecipeList() {
-    setNomberOfRecipes(recipeList.length);
+    setNumberOfRecipes(recipeList.length);
     const nomberOfRecipes = document.querySelector("#number-of-recipes");
     if (nomberOfRecipes) {
         nomberOfRecipes.textContent = getNumberOfRecipes();
@@ -48,6 +48,6 @@ export function getNumberOfRecipes() {
     return nomberOfRecipes;
 }
 
-export function setNomberOfRecipes(number) {
+export function setNumberOfRecipes(number) {
     nomberOfRecipes = number;
 }

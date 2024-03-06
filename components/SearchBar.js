@@ -5,7 +5,7 @@ import {
     getAllRecipes,
     setRecipListSearch,
 } from "../utils/dataManager.js";
-import { updateRecipeList, searchRecipes } from "../utils/SearchRecipes.js";
+import { updateRecipeList, searchRecipes, cleanSearchInput } from "../utils/SearchRecipes.js";
 import { updateFilter, getTags } from "../utils/SearchFilters.js";
 import cleanString from "../utils/cleanString.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
@@ -15,18 +15,26 @@ export function SearchBarComponent() {
         <div class="search-bar">
             <img src="assets/images/search-icon.png" alt="search" />
             <input id="search-input" type="text" placeholder="Rechercher une recette, un ingredient, ..."/>
+            <span class="icon-xmark clean"></span>
         </div>
     `;
 }
 
 export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
-
+    setRecipListSearch(getAllRecipes());
     updateFilter(getMatchedElements());
+    cleanSearchInput();
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
+
             const searchTerm = event.target.value;
+            if(searchTerm.length !== 0){
+                document.querySelector(".icon-xmark").style.display = "block";
+            } else {
+                document.querySelector(".icon-xmark").style.display = "none";
+            }
             const cleanSearchTerm = cleanString(searchTerm);
             // Divise en mots et filtre ceux ayant au moins 3 caractères
 
@@ -34,8 +42,7 @@ export function setupSearchInput() {
                 const filteredRecipes = searchRecipes(cleanSearchTerm);
 
                 setRecipeList(filteredRecipes);
-                
-                console.log(filteredRecipes);
+
                 setRecipListSearch(filteredRecipes);
 
                 updateRecipeList(getRecipeList(), getTags());
@@ -61,9 +68,11 @@ export function setupSearchInput() {
                 // Supprime la liste des recettes
                 if (cleanSearchTerm.length === 0) {
                     // get all
-                    const allRecipes = getAllRecipes();
-                    setRecipeList(allRecipes);
-                    updateRecipeList(allRecipes, getTags());
+
+                    setRecipListSearch(getAllRecipes());
+
+                    setRecipeList(getAllRecipes());
+                    updateRecipeList(getAllRecipes(), getTags());
                     updateFilter(getMatchedElements());
                 } else if (getRecipeList().length === 0) {
                     const listRecipeContainer = document.getElementById(
@@ -83,3 +92,4 @@ export function setupSearchInput() {
         console.error("Search input not found");
     }
 }
+

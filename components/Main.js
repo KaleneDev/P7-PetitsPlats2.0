@@ -4,7 +4,6 @@ export function MainComponent() {
     return jsxParser/*html*/ `
     <div id="recipe-list-container"> 
      
-
     </div>
     `;
 }

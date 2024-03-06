@@ -10,9 +10,8 @@ async function init() {
     const app = AppComponent(allRecipes);
 
     main.appendChild(app);
-    
-    setupSearchInput();
 
+    setupSearchInput();
 }
 
 init();

@@ -1,24 +1,16 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
-import {
-    getRecipeList,
-    getAllRecipes,
-    getRecipListSearch,
-} from "./dataManager.js";
+import { getRecipeList, getRecipListSearch } from "./dataManager.js";
 import { removeTag, getTags } from "./SearchFilters.js";
+
 let matchedElements = [];
 
 export function getMatchedElements() {
     if (getRecipeList()) {
-        // console.log(getRecipeList());
         return findMatchingElements(getRecipeList());
     }
     return matchedElements;
 }
-
-// export function setMatchedElements(newMatchedElements) {
-//     matchedElements = newMatchedElements;
-// }
 
 export function findMatchingElements(filteredRecipes) {
     let ingredientsMap = {};
@@ -70,6 +62,8 @@ export function updateTags(tags) {
         tagsContainer.innerHTML = ""; // Nettoie le conteneur pour les mises à jour
         tagsContainer.appendChild(tagsElement);
     }
+
+ 
     updateRecipeList(getRecipListSearch(), tags);
 
     addEventListenersToTags(tags);

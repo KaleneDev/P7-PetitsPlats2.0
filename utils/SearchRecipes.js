@@ -1,5 +1,11 @@
 import { RecipeListComponent } from "../components/RecipeList.js";
-import { setRecipeList, getAllRecipes } from "./dataManager.js";
+import {
+    setRecipeList,
+    getAllRecipes,
+    setRecipListSearch,
+} from "./dataManager.js";
+import { getTags, updateFilter } from "../utils/SearchFilters.js";
+import { getMatchedElements } from "../utils/SearchTags.js";
 
 // Fonction pour rechercher des recettes
 export function searchRecipes(searchTerm) {
@@ -85,4 +91,20 @@ export function updateAllRecipeList(recipes) {
     }
 
     setRecipeList(recipes);
+}
+
+export function cleanSearchInput() {
+    const clean = document.querySelectorAll(".clean");
+    clean.forEach((clean) => {
+        const searchInput = clean.previousElementSibling;
+ 
+        if (searchInput) {
+            clean.addEventListener("click", () => {
+                searchInput.value = "";
+                setRecipListSearch(getAllRecipes());
+                updateRecipeList(getAllRecipes(), getTags());
+                updateFilter(getMatchedElements());
+            });
+        }
+    });
 }

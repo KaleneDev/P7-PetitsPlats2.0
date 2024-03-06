@@ -381,6 +381,16 @@ body {
   margin-left: 2rem;
   margin-right: 2rem;
 }
+.site-header .search-bar .clean {
+  display: none;
+  position: absolute;
+  right: 4.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #7A7A7A;
+}
 .site-header .search-bar img {
   position: absolute;
   right: 1rem;
@@ -529,11 +539,12 @@ body {
 
 .filter {
   display: flex;
-  gap: 4rem;
+  column-gap: 4rem;
+  row-gap: 2rem;
   z-index: 100;
   position: relative;
-  max-height: 50px;
   align-items: center;
+  flex-wrap: wrap;
 }
 .filter-list {
   padding: 2rem 1rem;
@@ -554,7 +565,6 @@ body {
 }
 .filter__container.open {
   border-radius: 11px 11px 0 0;
-  border-radius: 11px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 .filter__numberOfRecipes span {
@@ -622,4 +632,18 @@ body {
 .filter__input {
   margin: 8px 16px;
   padding: 8px 8px;
+  max-width: 142px;
+}
+.filter__input__container {
+  position: relative;
+}
+.filter__input__container .clean {
+  display: none;
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #7A7A7A;
 }

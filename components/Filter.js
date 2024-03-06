@@ -22,7 +22,10 @@ export function FilterComponent(tags) {
                 <div class="filter__container">
                     <span class="filter__list__title">Ingrédients <span class="icon-chevron-down"></span></span>
                     <ul class="ingredient filter__list">
+                    <div class="filter__input__container">
                         <input type="text"  class="filter__input" placeholder="Rechercher un ingrédient"/>
+                        <span class="icon-xmark clean"></span>
+                    </div>
                         ${generateTagsList(tags.ingredients, "ingredients")}
                     </ul> 
                 </div>

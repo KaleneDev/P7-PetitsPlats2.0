@@ -1,4 +1,5 @@
 export default function jsxParser(strings, ...values) {
+
     const template = document.createElement("template");
     let htmlString = strings[0];
 
@@ -13,7 +14,9 @@ export default function jsxParser(strings, ...values) {
             template.innerHTML = htmlString.trim();
 
             // Remplacer immédiatement le placeholder par l'élément DOM
-            const placeholder = template.content.querySelector(`#${placeholderId}`);
+            const placeholder = template.content.querySelector(
+                `#${placeholderId}`
+            );
             if (placeholder) {
                 placeholder.replaceWith(value);
             }
