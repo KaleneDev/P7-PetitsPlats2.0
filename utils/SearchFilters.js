@@ -1,7 +1,7 @@
 import { FilterComponent } from "../components/Filter.js";
 import { updateTags, updateTagsActif } from "../utils/SearchTags.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
-
+import { cleanSearchInput } from "../utils/SearchRecipes.js";
 let tagsList = {
     ingredients: [],
     appliances: [],
@@ -41,12 +41,13 @@ export function updateFilter(tags) {
 
         currentList.innerHTML = newList.innerHTML;
     }
-    
+
     updateTagsActif();
     const filterInput = document.querySelectorAll(".filter__input");
 
     filterInput.forEach((input) => {
         input.addEventListener("input", (e) => {
+            cleanSearchInput();
             const searchTerm = e.target.value;
 
             if (searchTerm.length !== 0) {

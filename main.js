@@ -1,4 +1,4 @@
-import { initData, getRecipeList } from "./utils/dataManager.js";
+import { initData, getRecipeList, displayNumberOfRecipes } from "./utils/dataManager.js";
 import { AppComponent } from "./components/App.js";
 import { setupSearchInput } from "./components/SearchBar.js";
 
@@ -9,9 +9,11 @@ async function init() {
     const allRecipes = await getRecipeList();
     const app = AppComponent(allRecipes);
 
+    
     main.appendChild(app);
-
+    
     setupSearchInput();
+    displayNumberOfRecipes(allRecipes.length);
 }
 
 init();

@@ -15,15 +15,11 @@ export async function initData() {
 }
 
 export function getRecipeList() {
-    setNumberOfRecipes(recipeList.length);
-    const nomberOfRecipes = document.querySelector("#number-of-recipes");
-    if (nomberOfRecipes) {
-        nomberOfRecipes.textContent = getNumberOfRecipes();
-    }
     return recipeList;
 }
 
 export function getRecipListSearch() {
+
     return recipeListSearch;
 }
 
@@ -51,3 +47,9 @@ export function getNumberOfRecipes() {
 export function setNumberOfRecipes(number) {
     nomberOfRecipes = number;
 }
+
+export function displayNumberOfRecipes(number) {
+    const recipeNumber = document.getElementById("number-of-recipes");
+    recipeNumber.textContent = number;
+}
+

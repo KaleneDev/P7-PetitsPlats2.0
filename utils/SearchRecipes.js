@@ -3,6 +3,7 @@ import {
     setRecipeList,
     getAllRecipes,
     setRecipListSearch,
+    displayNumberOfRecipes,
 } from "./dataManager.js";
 import { getTags, updateFilter } from "../utils/SearchFilters.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
@@ -60,7 +61,13 @@ export function updateRecipeList(recipes, tags) {
             return ingredientMatch && applianceMatch && utensilMatch;
         });
     };
+
     const filteredRecipes = filterRecipes(recipes, tags);
+
+    displayNumberOfRecipes(filteredRecipes.length);
+
+    // Met à jour le nombre de recettes affichées
+
     setRecipeList(filteredRecipes);
 
     // Met à jour la liste des recettes affichées
@@ -95,11 +102,16 @@ export function updateAllRecipeList(recipes) {
 
 export function cleanSearchInput() {
     const clean = document.querySelectorAll(".clean");
+    console.log(clean);
     clean.forEach((clean) => {
         const searchInput = clean.previousElementSibling;
- 
+
         if (searchInput) {
-            clean.addEventListener("click", () => {
+            clean.addEventListener("click", (e) => {
+                e.target.style.display = "none";
+                e.stopPropagation(); // Empêche le clic de se propager
+
+                console.log("clean");
                 searchInput.value = "";
                 setRecipListSearch(getAllRecipes());
                 updateRecipeList(getAllRecipes(), getTags());

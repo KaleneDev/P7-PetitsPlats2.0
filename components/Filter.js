@@ -24,7 +24,7 @@ export function FilterComponent(tags) {
                     <ul class="ingredient filter__list">
                     <div class="filter__input__container">
                         <input type="text"  class="filter__input" placeholder="Rechercher un ingrédient"/>
-                        <span class="icon-xmark clean"></span>
+                        <span class="icon-xmark clean ingredient"></span>
                     </div>
                         ${generateTagsList(tags.ingredients, "ingredients")}
                     </ul> 
@@ -32,14 +32,20 @@ export function FilterComponent(tags) {
                 <div class="filter__container">
                     <span class="filter__list__title">Appareils <span class="icon-chevron-down"></span></span>
                     <ul class="appliance filter__list">
+                    <div class="filter__input__container">
                         <input type="text"  class="filter__input" placeholder="Rechercher un Appareil"/>
+                        <span class="icon-xmark clean appliance"></span>
+                    </div>
                         ${generateTagsList(tags.appliances, "appliances")}
                     </ul>
                 </div>
                 <div class="filter__container">
                     <span class="filter__list__title">Ustensiles <span class="icon-chevron-down"></span></span>
                     <ul class="ustensil filter__list">
+                    <div class="filter__input__container">
                         <input type="text"  class="filter__input" placeholder="Rechercher un ustensile"/>
+                        <span class="icon-xmark clean ustensil"></span>
+                    </div>
                         ${generateTagsList(tags.ustensils, "ustensils")}
                     </ul>
                 </div>
