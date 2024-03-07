@@ -573,6 +573,7 @@ body {
   font-size: 21px;
 }
 .filter__list {
+  position: absolute;
   padding: 0;
   margin: 0;
   display: flex;

@@ -41,6 +41,7 @@ export function updateFilter(tags) {
 
         currentList.innerHTML = newList.innerHTML;
     }
+    
     updateTagsActif();
     const filterInput = document.querySelectorAll(".filter__input");
 
