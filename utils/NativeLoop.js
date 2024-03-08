@@ -82,7 +82,5 @@ Array.prototype.includes = function (element) {
         }
     }
     // Si la boucle se termine sans trouver de correspondance
-    // entre 'element' et les éléments du tableau,
-    // retourne 'false', indiquant que 'element' n'est pas inclus
     return false;
 };
