@@ -33,6 +33,7 @@ Array.prototype.filter = function (callback) {
 
 // Redéfinit la méthode forEach sur le prototype d'Array.
 Array.prototype.forEach = function (callback) {
+    console.log(callback);
     // Itère sur chaque élément du tableau.
     for (let i = 0; i < this.length; i++) {
         // Exécute la fonction callback pour chaque élément du tableau,
@@ -62,12 +63,12 @@ Array.prototype.every = function (callback) {
     for (let i = 0; i < this.length; i++) {
         // Si le callback retourne `false` pour au moins un élément,
         // `every` retourne immédiatement `false`.
-        if (!callback(this[i])) {
-            return false;
+        if (callback(this[i])) {
+            return true;
         }
     }
     // Si tous les éléments satisfont la condition définie dans le callback, retourne `true`.
-    return true;
+    return false;
 };
 
 // Ajoute une méthode 'includes' personnalisée au prototype d'Array,

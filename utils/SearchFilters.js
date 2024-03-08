@@ -2,6 +2,7 @@ import { FilterComponent } from "../components/Filter.js";
 import { updateTags, updateTagsActif } from "../utils/SearchTags.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
 import { cleanSearchInput } from "../utils/SearchRecipes.js";
+
 let tagsList = {
     ingredients: [],
     appliances: [],
