@@ -22,7 +22,6 @@ Array.prototype.filter = function (callback) {
     for (let i = 0; i < this.length; i++) {
         // Applique la fonction callback sur chaque élément.
         // Si la fonction callback retourne `true`, cela signifie que l'élément satisfait le critère,
-        // et donc, l'élément est ajouté au tableau des résultats.
         if (callback(this[i])) {
             resultArray.push(this[i]);
         }
@@ -72,22 +71,17 @@ Array.prototype.every = function (callback) {
 };
 
 // Ajoute une méthode 'includes' personnalisée au prototype d'Array,
-// permettant à tous les tableaux d'utiliser cette méthode.
 Array.prototype.includes = function (element) {
     // Démarre une boucle pour itérer sur tous les éléments du tableau.
     for (let i = 0; i < this.length; i++) {
         // À chaque itération, vérifie si l'élément courant (this[i])
         // est strictement égal à l'élément recherché ('element').
         if (this[i] === element) {
-            // Si un élément du tableau correspond à l'élément recherché,
-            // retourne 'true' immédiatement, indiquant que 'element'
-            // est présent dans le tableau.
             return true;
         }
     }
     // Si la boucle se termine sans trouver de correspondance
     // entre 'element' et les éléments du tableau,
     // retourne 'false', indiquant que 'element' n'est pas inclus
-    // dans le tableau.
     return false;
 };
