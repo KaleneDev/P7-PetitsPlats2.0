@@ -1,7 +1,8 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
 import { getRecipeList, getRecipListSearch } from "./dataManager.js";
-import { removeTag, getTags, updateFilter } from "./SearchFilters.js";
+import { removeTag, getTags } from "./SearchFilters.js";
+import { search } from "../components/SearchBar.js";
 
 let matchedElements = [];
 
@@ -103,7 +104,9 @@ export function addEventListenersToTags() {
                 removeTag(tagName, tagType);
                 tagElement.remove(); // Supprimer le tag de l'interface utilisateur
                 // Refiltrer et mettre à jour la liste des recettes
-                updateRecipeList(getRecipListSearch(), getTags());
+                // updateRecipeList(getRecipListSearch(), getTags());
+                const searchInput = document.getElementById("search-input");
+                search(searchInput.value);
             }
         });
     });
