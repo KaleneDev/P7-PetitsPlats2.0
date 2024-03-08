@@ -20,6 +20,66 @@ export function SearchBarComponent() {
     `;
 }
 
+export function search(searchTerm) {
+    if(searchTerm.length !== 0){
+        document.querySelector(".icon-xmark").style.display = "block";
+    } else {
+        document.querySelector(".icon-xmark").style.display = "none";
+    }
+    const cleanSearchTerm = cleanString(searchTerm);
+    // Divise en mots et filtre ceux ayant au moins 3 caractères
+
+    if (searchTerm.length > 3) {
+        const filteredRecipes = searchRecipes(cleanSearchTerm);
+
+        setRecipeList(filteredRecipes);
+
+        setRecipListSearch(filteredRecipes);
+
+        updateRecipeList(getRecipeList(), getTags());
+        updateFilter(getMatchedElements());
+
+        if (getRecipeList().length === 0) {
+            // Supprime la liste des recettes
+            const listRecipes = document.querySelector(".recipe-list");
+            listRecipes.innerHTML = "";
+            if (document.querySelector(".message")) {
+                document.querySelector(".message").remove();
+            }
+            // Ajoute dans recipeList un message d'erreur
+            const listRecipeContainer = document.getElementById(
+                "recipe-list-container"
+            );
+            const message = document.createElement("div");
+            message.classList.add("message");
+            message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+            listRecipeContainer.appendChild(message);
+        }
+    } else {
+        // Supprime la liste des recettes
+        if (cleanSearchTerm.length === 0) {
+            // get all
+
+            setRecipListSearch(getAllRecipes());
+
+            setRecipeList(getAllRecipes());
+            updateRecipeList(getAllRecipes(), getTags());
+            updateFilter(getMatchedElements());
+        } else if (getRecipeList().length === 0) {
+            const listRecipeContainer = document.getElementById(
+                "recipe-list-container"
+            );
+            if (listRecipeContainer.querySelector(".message")) {
+                listRecipeContainer.querySelector(".message").remove();
+            }
+            const message = document.createElement("div");
+            message.classList.add("message");
+            message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+            listRecipeContainer.appendChild(message);
+        }
+    }
+}
+
 export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
     setRecipListSearch(getAllRecipes());
@@ -28,65 +88,8 @@ export function setupSearchInput() {
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
-
             const searchTerm = event.target.value;
-            if(searchTerm.length !== 0){
-                document.querySelector(".icon-xmark").style.display = "block";
-            } else {
-                document.querySelector(".icon-xmark").style.display = "none";
-            }
-            const cleanSearchTerm = cleanString(searchTerm);
-            // Divise en mots et filtre ceux ayant au moins 3 caractères
-
-            if (searchTerm.length > 3) {
-                const filteredRecipes = searchRecipes(cleanSearchTerm);
-
-                setRecipeList(filteredRecipes);
-
-                setRecipListSearch(filteredRecipes);
-
-                updateRecipeList(getRecipeList(), getTags());
-                updateFilter(getMatchedElements());
-
-                if (getRecipeList().length === 0) {
-                    // Supprime la liste des recettes
-                    const listRecipes = document.querySelector(".recipe-list");
-                    listRecipes.innerHTML = "";
-                    if (document.querySelector(".message")) {
-                        document.querySelector(".message").remove();
-                    }
-                    // Ajoute dans recipeList un message d'erreur
-                    const listRecipeContainer = document.getElementById(
-                        "recipe-list-container"
-                    );
-                    const message = document.createElement("div");
-                    message.classList.add("message");
-                    message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-                    listRecipeContainer.appendChild(message);
-                }
-            } else {
-                // Supprime la liste des recettes
-                if (cleanSearchTerm.length === 0) {
-                    // get all
-
-                    setRecipListSearch(getAllRecipes());
-
-                    setRecipeList(getAllRecipes());
-                    updateRecipeList(getAllRecipes(), getTags());
-                    updateFilter(getMatchedElements());
-                } else if (getRecipeList().length === 0) {
-                    const listRecipeContainer = document.getElementById(
-                        "recipe-list-container"
-                    );
-                    if (listRecipeContainer.querySelector(".message")) {
-                        listRecipeContainer.querySelector(".message").remove();
-                    }
-                    const message = document.createElement("div");
-                    message.classList.add("message");
-                    message.innerText = `Aucune recette ne contient '${searchTerm}'. Vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
-                    listRecipeContainer.appendChild(message);
-                }
-            }
+            search(searchTerm)
         });
     } else {
         console.error("Search input not found");

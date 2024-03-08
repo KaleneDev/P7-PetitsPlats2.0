@@ -2,6 +2,7 @@ import { FilterComponent } from "../components/Filter.js";
 import { updateTags, updateTagsActif } from "../utils/SearchTags.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
 import { cleanSearchInput } from "../utils/SearchRecipes.js";
+import { search } from "../components/SearchBar.js";
 let tagsList = {
     ingredients: [],
     appliances: [],
@@ -116,7 +117,10 @@ export function tagActive() {
                 // Supposons que setTags ajoute le tag à une liste de tags actifs
                 setTags(tag.dataset.tag, type);
                 updateTags(getTags());
-                updateFilter(getMatchedElements());
+                // updateFilter(getMatchedElements());
+                const searchInput = document.getElementById("search-input");
+                search(searchInput.value);
+
             }
         });
 
