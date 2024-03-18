@@ -35,11 +35,6 @@ export function getAllRecipes() {
     return recipeListAll;
 }
 
-// Fonction pour récupérer une recette par son ID
-export function getRecipeById(id) {
-    return setRecipeList(recipesData).find((recipe) => recipe.id === id);
-}
-
 export function getNumberOfRecipes() {
     return nomberOfRecipes;
 }
@@ -52,4 +47,3 @@ export function displayNumberOfRecipes(number) {
     const recipeNumber = document.getElementById("number-of-recipes");
     recipeNumber.textContent = number;
 }
-

@@ -1,7 +1,7 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
 import { getRecipeList, getRecipListSearch } from "./dataManager.js";
-import { removeTag, getTags, updateFilter } from "./SearchFilters.js";
+import { removeTag, getTags } from "./SearchFilters.js";
 
 let matchedElements = [];
 
@@ -104,6 +104,7 @@ export function addEventListenersToTags() {
                 tagElement.remove(); // Supprimer le tag de l'interface utilisateur
                 // Refiltrer et mettre à jour la liste des recettes
                 updateRecipeList(getRecipListSearch(), getTags());
+
             }
         });
     });

@@ -46,6 +46,7 @@ export function setupSearchInput() {
                 setRecipListSearch(filteredRecipes);
 
                 updateRecipeList(getRecipeList(), getTags());
+
                 updateFilter(getMatchedElements());
 
                 if (getRecipeList().length === 0) {
