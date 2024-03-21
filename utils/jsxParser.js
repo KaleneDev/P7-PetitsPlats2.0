@@ -24,8 +24,7 @@ export default function jsxParser(strings, ...values) {
             // Remettre à jour la chaîne HTML avec le nouveau contenu du template
             htmlString = template.innerHTML;
         } else {
-            htmlString += value;
-            htmlString += strings[index + 1];
+            htmlString += value + strings[index + 1];
         }
     });
 
