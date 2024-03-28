@@ -33,8 +33,6 @@ export function setupSearchInput() {
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
-            const t0 = performance.now();
-            // Exécution des tests de performance
 
             let searchTerm = event.target.value;
 
@@ -98,13 +96,6 @@ export function setupSearchInput() {
                 }
             }
 
-            // Fin de la mesure de performance
-            const t1 = performance.now();
-            console.log(
-                `La recherche ${cleanSearchTerm} a pris ${
-                    t1 - t0
-                } millisecondes.`
-            );
         });
     } else {
         console.error("Search input not found");

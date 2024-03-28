@@ -1,23 +1,46 @@
-const searchTerms = ["pomme", "poisson", "tarte aux pommes", "carotte"];
+const searchTerms = [
+    "pomme",
+    "poisson",
+    "tarte aux pommes",
+    "carotte",
+    "chocolat",
+];
+const repetitions = 100; // Nombre de fois que chaque terme sera recherché
 
-export function runPerformanceTests() {
+export async function runPerformanceTests() {
     const searchInput = document.getElementById("search-input");
     if (!searchInput) {
         console.error("Search input not found");
         return;
     }
 
-    searchTerms.forEach((term) => {
-        // Définit la valeur de l'input
-        searchInput.value = term;
+    for (let term of searchTerms) {
+        let totalTime = 0; // Accumule le temps total pour le terme actuel
+        for (let i = 0; i < repetitions; i++) {
+            // Définit la valeur de l'input à chaque terme
+            searchInput.value = term;
 
-        // Crée un nouvel événement d'entrée
-        const event = new Event("input", {
-            bubbles: true, // L'événement remonte jusqu'aux ancêtres de l'élément
-            cancelable: true,
-        });
+            // Crée et envoie un nouvel événement d'entrée pour simuler la saisie
+            const event = new Event("input", {
+                bubbles: true,
+                cancelable: true,
+            });
 
-        // Envoie l'événement au champ de saisie
-        searchInput.dispatchEvent(event);
-    });
+            const startTime = performance.now(); // Démarre le chronomètre
+            searchInput.dispatchEvent(event);
+
+            // Note : Cela suppose que le traitement de l'événement est synchrone.
+            // Dans un cas réel, tu devrais attendre que la recherche soit vraiment finie (peut-être via une promesse).
+
+            const endTime = performance.now(); // Arrête le chronomètre
+            totalTime += endTime - startTime; // Accumule le temps total
+        }
+
+        const averageTime = totalTime / repetitions; // Calcule la moyenne du temps de recherche pour ce terme
+        console.log(
+            `Moyenne du temps pour '${term}' : ${averageTime.toFixed(
+                2
+            )} millisecondes.`
+        );
+    }
 }
