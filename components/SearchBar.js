@@ -29,7 +29,7 @@ export function setupSearchInput(term) {
     setRecipListSearch(getAllRecipes());
     updateFilter(getMatchedElements());
     cleanSearchInput();
-
+  
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
             let searchTerm = event.target.value;

@@ -19,7 +19,6 @@ export function getRecipeList() {
 }
 
 export function getRecipListSearch() {
-
     return recipeListSearch;
 }
 
@@ -44,7 +43,6 @@ export function setNumberOfRecipes(number) {
 }
 
 export function displayNumberOfRecipes(number) {
-    console.log("Number of recipes: ", number);
     const recipeNumber = document.getElementById("number-of-recipes");
     recipeNumber.textContent = number;
 }

@@ -24,7 +24,7 @@ async function init() {
         main.appendChild(app);
 
         // Configuration de la barre de recherche
-        setupSearchInput();
+        // setupSearchInput();
 
         // Affichage du nombre total de recettes disponibles
         displayNumberOfRecipes(allRecipes.length);

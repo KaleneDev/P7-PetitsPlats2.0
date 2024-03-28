@@ -14,16 +14,27 @@ export function getTags() {
 }
 
 export function setTags(tag, type) {
-    if (!tagsList[type].includes(tag)) {
+    let isPresent = false;
+    for (let i = 0; i < tagsList[type].length; i++) {
+        if (tagsList[type][i] === tag) {
+            isPresent = true;
+            break;
+        }
+    }
+    if (!isPresent) {
         tagsList[type].push(tag);
     }
 }
 
 export function removeTag(tag, type) {
-    // Supprime le tag du tableau spécifique
-    tagsList[type] = tagsList[type].filter((t) => t !== tag);
-    const tagActive = document.querySelector(`.tag[data-tag="${tag}"]`);
+    for (let i = 0; i < tagsList[type].length; i++) {
+        if (tagsList[type][i] === tag) {
+            tagsList[type].splice(i, 1); // Remove the tag at index i
+            break;
+        }
+    }
 
+    const tagActive = document.querySelector(`.tag[data-tag="${tag}"]`);
     if (tagActive) {
         tagActive.classList.remove("active");
     }
@@ -32,22 +43,20 @@ export function removeTag(tag, type) {
 export function updateFilter(tags) {
     const tagsElement = FilterComponent(tags);
     const tagsElementList = tagsElement.querySelectorAll(".filter__container");
-
     const container = document.querySelector(".filter-list");
     const containerList = container.querySelectorAll(".filter__container");
 
     for (let i = 0; i < containerList.length; i++) {
         const currentList = containerList[i].querySelector(".filter__list");
         const newList = tagsElementList[i].querySelector(".filter__list");
-
         currentList.innerHTML = newList.innerHTML;
     }
 
     updateTagsActif();
-    const filterInput = document.querySelectorAll(".filter__input");
 
-    filterInput.forEach((input) => {
-        input.addEventListener("input", (e) => {
+    const filterInput = document.querySelectorAll(".filter__input");
+    for (let i = 0; i < filterInput.length; i++) {
+        filterInput[i].addEventListener("input", (e) => {
             cleanSearchInput();
             const searchTerm = e.target.value;
 
@@ -61,16 +70,18 @@ export function updateFilter(tags) {
                 .closest(".filter__container")
                 .querySelector(".filter__list");
             const listItems = list.querySelectorAll(".tag");
-            listItems.forEach((tag) => {
+
+            for (let j = 0; j < listItems.length; j++) {
+                const tag = listItems[j];
                 const tagText = tag.textContent.toLowerCase();
                 if (tagText.includes(searchTerm.toLowerCase())) {
                     tag.style.display = "flex";
                 } else {
                     tag.style.display = "none";
                 }
-            });
+            }
         });
-    });
+    }
 
     openFilter();
     tagActive();
@@ -78,7 +89,6 @@ export function updateFilter(tags) {
 
 function openFilterHandler(e) {
     const title = e.target.closest(".filter__list__title");
-
     const list = e.target
         .closest(".filter__container")
         .querySelector(".filter__list");
@@ -90,11 +100,9 @@ function openFilterHandler(e) {
 
 export function openFilter() {
     const filter = document.querySelectorAll(".filter__list__title");
-    if (filter) {
-        filter.forEach((title) => {
-            title.removeEventListener("click", openFilterHandler);
-            title.addEventListener("click", openFilterHandler);
-        });
+    for (let i = 0; i < filter.length; i++) {
+        filter[i].removeEventListener("click", openFilterHandler);
+        filter[i].addEventListener("click", openFilterHandler);
     }
 }
 
@@ -102,7 +110,8 @@ export function tagActive() {
     const tags = document.querySelectorAll(
         ".tag.appliances, .tag.ingredients, .tag.ustensils"
     );
-    tags.forEach((tag) => {
+    for (let i = 0; i < tags.length; i++) {
+        const tag = tags[i];
         const type = tag.classList.contains("appliances")
             ? "appliances"
             : tag.classList.contains("ingredients")
@@ -110,28 +119,21 @@ export function tagActive() {
             : "ustensils";
 
         tag.addEventListener("click", function (e) {
-            // Pour empêcher le clic sur le span de fermeture de propager au tag
             e.stopPropagation();
-            if (!tag.classList.contains("active")) {
-                tag.classList.add("active");
-                // Supposons que setTags ajoute le tag à une liste de tags actifs
-                setTags(tag.dataset.tag, type);
+            if (!this.classList.contains("active")) {
+                this.classList.add("active");
+                setTags(this.dataset.tag, type);
                 updateTags(getTags());
                 updateFilter(getMatchedElements());
             }
         });
 
         const closeSpan = tag.querySelector(".close-tag");
-        // Attacher un écouteur d'événements directement au span de fermeture
         closeSpan.addEventListener("click", function (e) {
-            e.stopPropagation(); // Empêche le clic de se propager
-            const tag = this.closest(".tag");
-            if (tag) {
-                // Mise à jour de l'état des tags
-                removeTag(tag.dataset.tag, type);
-                updateTags(getTags());
-                updateFilter(getMatchedElements());
-            }
+            e.stopPropagation();
+            removeTag(this.closest(".tag").dataset.tag, type);
+            updateTags(getTags());
+            updateFilter(getMatchedElements());
         });
-    });
+    }
 }
