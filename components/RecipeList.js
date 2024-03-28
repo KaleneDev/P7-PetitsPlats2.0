@@ -1,11 +1,25 @@
-// components/RecipeListComponent.js
 import jsxParser from "../utils/jsxParser.js";
 import { limiteDescription } from "../utils/limiteDescription.js";
 
 export function RecipeListComponent(recipes) {
-    const recipeItems = recipes
-        .map(
-            (recipe) => /*html*/ `
+    let recipeItems = "";
+    for (let i = 0; i < recipes.length; i++) {
+        const recipe = recipes[i];
+        let ingredientsHtml = "";
+
+        for (let j = 0; j < recipe.ingredients.length; j++) {
+            const ingredient = recipe.ingredients[j];
+            ingredientsHtml += /*html*/ `
+                <ul>
+                    <li class="ingredient"> ${ingredient.ingredient} </li>
+                    <li class="quantityUnit"> ${
+                        ingredient.quantity ? ingredient.quantity : ""
+                    } ${ingredient.unit ? ingredient.unit : ""} </li>
+                </ul>
+            `;
+        }
+
+        recipeItems += /*html*/ `
             <div class="recipe-container">
                 <div class="recipe-container__image">
                     <img src="./../assets/Les_petits_plats/${
@@ -26,35 +40,16 @@ export function RecipeListComponent(recipes) {
                     <div class="recipe-container__content__ingredients">
                         <span>INGRÉDIENTS</span>
                         <ul class="recipe-container__content__ingredients__quantity">
-                            ${recipe.ingredients
-                                .map((ingredient) => {
-                                    return /*html*/ `
-                                            <ul >
-                                                <li class="ingredient"> ${
-                                                    ingredient.ingredient
-                                                } </li>
-                                                <li class="quantityUnit"> ${
-                                                    ingredient.quantity
-                                                        ? ingredient.quantity
-                                                        : ""
-                                                } ${
-                                        ingredient.unit ? ingredient.unit : ""
-                                    } </li>
-                                            </ul>
-                                `;
-                                })
-                                .join("")}
+                            ${ingredientsHtml}
                         </ul>
                     </div>
 
                 </div>
             </div>
-        `
-        )
-        .join("");
+        `;
+    }
 
     return jsxParser/*html*/ `
-
         <div class="recipe-list">
             ${recipeItems}
         </div>

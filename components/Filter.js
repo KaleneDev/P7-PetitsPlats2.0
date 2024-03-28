@@ -2,17 +2,16 @@ import jsxParser from "../utils/jsxParser.js";
 import { getNumberOfRecipes } from "../utils/dataManager.js";
 
 function generateTagsList(tags, className) {
-    return tags
-        .map(
-            (tag) => /*html*/ `
-        <li class="tag ${className}" data-tag="${tag}">
-            ${tag}
+    let tagsHtml = '';
+    for (let i = 0; i < tags.length; i++) {
+        tagsHtml += /*html*/ `
+        <li class="tag ${className}" data-tag="${tags[i]}">
+            ${tags[i]}
             <span class="icon-circle-xmark close-tag"></span>
         </li>
-
-    `
-        )
-        .join("");
+    `;
+    }
+    return tagsHtml;
 }
 
 export function FilterComponent(tags) {
@@ -33,7 +32,7 @@ export function FilterComponent(tags) {
                     <span class="filter__list__title">Appareils <span class="icon-chevron-down"></span></span>
                     <ul class="appliance filter__list">
                     <div class="filter__input__container">
-                        <input type="text"  class="filter__input" placeholder="Rechercher un Appareil"/>
+                        <input type="text"  class="filter__input" placeholder="Rechercher un appareil"/>
                         <span class="icon-xmark clean appliance"></span>
                     </div>
                         ${generateTagsList(tags.appliances, "appliances")}
@@ -49,7 +48,7 @@ export function FilterComponent(tags) {
                         ${generateTagsList(tags.ustensils, "ustensils")}
                     </ul>
                 </div>
-                </div>
+            </div>
             <div class="filter__numberOfRecipes">
                 <span id="number-of-recipes">${getNumberOfRecipes()}</span>
                 <span>recettes</span>

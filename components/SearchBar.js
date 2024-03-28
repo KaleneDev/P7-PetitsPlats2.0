@@ -35,8 +35,8 @@ export function setupSearchInput() {
         searchInput.addEventListener("input", (event) => {
             // Exécution des tests de performance
 
-            let searchTerm = event.target.value;
             const t0 = performance.now();
+            let searchTerm = event.target.value;
 
             if (searchTerm.length !== 0) {
                 document.querySelector(".icon-xmark").style.display = "block";
