@@ -7,6 +7,7 @@ import {
 import { AppComponent } from "./components/App.js";
 import { setupSearchInput } from "./components/SearchBar.js";
 import { runPerformanceTests } from "./utils/testPerformance.js";
+
 // Fonction asynchrone init() pour initialiser l'application
 async function init() {
     try {
@@ -24,13 +25,13 @@ async function init() {
         main.appendChild(app);
 
         // Configuration de la barre de recherche
-        // setupSearchInput();
+        setupSearchInput();
 
         // Affichage du nombre total de recettes disponibles
         displayNumberOfRecipes(allRecipes.length);
 
-        // Exécution des tests de performance
         runPerformanceTests();
+   
     } catch (error) {
         console.error(
             "Erreur lors de l'initialisation de l'application :",

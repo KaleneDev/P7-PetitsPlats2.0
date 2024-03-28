@@ -13,6 +13,7 @@ import {
 import { updateFilter, getTags } from "../utils/SearchFilters.js";
 import cleanString from "../utils/cleanString.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
+// import { runPerformanceTests } from "../utils/testPerformance.js";
 
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
@@ -24,16 +25,19 @@ export function SearchBarComponent() {
     `;
 }
 
-export function setupSearchInput(term) {
+export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
     setRecipListSearch(getAllRecipes());
     updateFilter(getMatchedElements());
     cleanSearchInput();
-  
+
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
+            // Exécution des tests de performance
+
             let searchTerm = event.target.value;
-            searchTerm = searchTerm ? searchTerm : term;
+            const t0 = performance.now();
+
             if (searchTerm.length !== 0) {
                 document.querySelector(".icon-xmark").style.display = "block";
             } else {
@@ -95,6 +99,12 @@ export function setupSearchInput(term) {
             }
 
             // Fin de la mesure de performance
+            const t1 = performance.now();
+            console.log(
+                `La recherche ${cleanSearchTerm} a pris ${
+                    t1 - t0
+                } millisecondes.`
+            );
         });
     } else {
         console.error("Search input not found");

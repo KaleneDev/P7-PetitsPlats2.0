@@ -17,28 +17,27 @@ export function findMatchingElements(filteredRecipes) {
     let appliancesMap = {};
     let ustensilsMap = {};
 
-    filteredRecipes.forEach((recipe) => {
-        recipe.ingredients.forEach((ingredient) => {
+    for (let recipe of filteredRecipes) {
+        for (let ingredient of recipe.ingredients) {
             const lowerIngredient = ingredient.ingredient.toLowerCase();
             if (!ingredientsMap[lowerIngredient]) {
                 ingredientsMap[lowerIngredient] = ingredient.ingredient;
             }
-        });
+        }
 
         const lowerAppliance = recipe.appliance.toLowerCase();
         if (!appliancesMap[lowerAppliance]) {
             appliancesMap[lowerAppliance] = recipe.appliance;
         }
 
-        recipe.ustensils.forEach((ustensil) => {
+        for (let ustensil of recipe.ustensils) {
             const lowerUstensil = ustensil.toLowerCase();
             if (!ustensilsMap[lowerUstensil]) {
                 ustensilsMap[lowerUstensil] = ustensil;
             }
-        });
-    });
+        }
+    }
 
-    // Convertit les objets en tableaux de valeurs tout en préservant la casse originale
     const matchedElements = {
         ingredients: Object.values(ingredientsMap),
         appliances: Object.values(appliancesMap),
@@ -48,7 +47,7 @@ export function findMatchingElements(filteredRecipes) {
 }
 
 export function updateTags(tags) {
-    const tagsElement = TagsComponent(tags); // Supposons que ceci retourne un élément DOM
+    const tagsElement = TagsComponent(tags);
     const filterList = document.querySelector(".filter-list");
     let tagsContainer = document.querySelector(".recipe-list__tags");
 
@@ -57,40 +56,38 @@ export function updateTags(tags) {
         tagsContainer.className = "recipe-list__tags";
         filterList.insertAdjacentElement("afterend", tagsContainer);
     }
-    // Étape 2: Insérer tagsElement dans la <div> .recipe-list__tags
+
     if (tagsContainer) {
-        tagsContainer.innerHTML = ""; // Nettoie le conteneur pour les mises à jour
+        tagsContainer.innerHTML = "";
         tagsContainer.appendChild(tagsElement);
     }
 
     updateRecipeList(getRecipListSearch(), tags);
-
     addEventListenersToTags(tags);
 }
 
 export function updateTagsActif() {
     const tags = document.querySelectorAll(".tag");
-    tags.forEach((tag) => {
-        const tagType = tag.classList[1]; // Assume this is either 'ingredients', 'appliances', or 'ustensils'
+    for (let i = 0; i < tags.length; i++) {
+        const tag = tags[i];
+        const tagType = tag.classList[1];
         const tagName = tag.dataset.tag;
 
-        // Directement utiliser tagType pour accéder au tableau correspondant
         if (getTags()[tagType] && getTags()[tagType].includes(tagName)) {
             tag.classList.add("active");
         }
-    });
+    }
 }
 
 export function addEventListenersToTags() {
     const tagsContainer = document.querySelector(".recipe-list__tags");
     const closeButtons = tagsContainer.querySelectorAll(".close-tag");
 
-    closeButtons.forEach((button) => {
-        button.addEventListener("click", (e) => {
-            e.stopPropagation(); // Prévenir la propagation pour éviter les effets secondaires
+    for (let i = 0; i < closeButtons.length; i++) {
+        closeButtons[i].addEventListener("click", (e) => {
+            e.stopPropagation();
             const tagElement = e.target.closest(".tag");
             if (tagElement) {
-                // Vérifie que tagElement n'est pas null
                 const tagName = tagElement.dataset.tag;
                 const tagType = tagElement.classList.contains("ingredient")
                     ? "ingredients"
@@ -101,11 +98,9 @@ export function addEventListenersToTags() {
                     : null;
 
                 removeTag(tagName, tagType);
-                tagElement.remove(); // Supprimer le tag de l'interface utilisateur
-                // Refiltrer et mettre à jour la liste des recettes
+                tagElement.remove();
                 updateRecipeList(getRecipListSearch(), getTags());
-
             }
         });
-    });
+    }
 }
