@@ -1,8 +1,12 @@
 // Importation des modules nécessaires pour la gestion des données, l'interface utilisateur et la barre de recherche
-import { initData, getRecipeList, displayNumberOfRecipes } from "./utils/dataManager.js";
+import {
+    initData,
+    getRecipeList,
+    displayNumberOfRecipes,
+} from "./utils/dataManager.js";
 import { AppComponent } from "./components/App.js";
 import { setupSearchInput } from "./components/SearchBar.js";
-
+import { runPerformanceTests } from "./utils/testPerformance.js";
 // Fonction asynchrone init() pour initialiser l'application
 async function init() {
     try {
@@ -25,10 +29,14 @@ async function init() {
         // Affichage du nombre total de recettes disponibles
         displayNumberOfRecipes(allRecipes.length);
 
+        // Exécution des tests de performance
+        runPerformanceTests();
     } catch (error) {
-        console.error("Erreur lors de l'initialisation de l'application :", error);
+        console.error(
+            "Erreur lors de l'initialisation de l'application :",
+            error
+        );
     }
-
 }
 
 init();

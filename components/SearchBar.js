@@ -5,7 +5,11 @@ import {
     getAllRecipes,
     setRecipListSearch,
 } from "../utils/dataManager.js";
-import { updateRecipeList, searchRecipes, cleanSearchInput } from "../utils/SearchRecipes.js";
+import {
+    updateRecipeList,
+    searchRecipes,
+    cleanSearchInput,
+} from "../utils/SearchRecipes.js";
 import { updateFilter, getTags } from "../utils/SearchFilters.js";
 import cleanString from "../utils/cleanString.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
@@ -20,7 +24,7 @@ export function SearchBarComponent() {
     `;
 }
 
-export function setupSearchInput() {
+export function setupSearchInput(term) {
     const searchInput = document.getElementById("search-input");
     setRecipListSearch(getAllRecipes());
     updateFilter(getMatchedElements());
@@ -28,9 +32,9 @@ export function setupSearchInput() {
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
-
-            const searchTerm = event.target.value;
-            if(searchTerm.length !== 0){
+            let searchTerm = event.target.value;
+            searchTerm = searchTerm ? searchTerm : term;
+            if (searchTerm.length !== 0) {
                 document.querySelector(".icon-xmark").style.display = "block";
             } else {
                 document.querySelector(".icon-xmark").style.display = "none";
@@ -39,6 +43,7 @@ export function setupSearchInput() {
             // Divise en mots et filtre ceux ayant au moins 3 caractères
 
             if (searchTerm.length > 3) {
+                // Début de la mesure de performance
                 const filteredRecipes = searchRecipes(cleanSearchTerm);
 
                 setRecipeList(filteredRecipes);
@@ -88,9 +93,10 @@ export function setupSearchInput() {
                     listRecipeContainer.appendChild(message);
                 }
             }
+
+            // Fin de la mesure de performance
         });
     } else {
         console.error("Search input not found");
     }
 }
-
