@@ -24,7 +24,7 @@ export function SearchBarComponent() {
    `;
 }
 
-export function setupSearchInput(term) {
+export function setupSearchInput() {
     const searchInput = document.getElementById("search-input");
     setRecipListSearch(getAllRecipes());
     updateFilter(getMatchedElements());
@@ -33,7 +33,6 @@ export function setupSearchInput(term) {
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
             let searchTerm = event.target.value;
-            searchTerm = searchTerm ? searchTerm : term;
             if (searchTerm.length !== 0) {
                 document.querySelector(".icon-xmark").style.display = "block";
             } else {
