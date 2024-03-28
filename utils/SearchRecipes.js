@@ -102,7 +102,6 @@ export function updateAllRecipeList(recipes) {
 
 export function cleanSearchInput() {
     const clean = document.querySelectorAll(".clean");
-    console.log(clean);
     clean.forEach((clean) => {
         const searchInput = clean.previousElementSibling;
 
@@ -111,7 +110,6 @@ export function cleanSearchInput() {
                 e.target.style.display = "none";
                 e.stopPropagation(); // Empêche le clic de se propager
 
-                console.log("clean");
                 searchInput.value = "";
                 setRecipListSearch(getAllRecipes());
                 updateRecipeList(getAllRecipes(), getTags());
