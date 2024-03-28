@@ -33,9 +33,6 @@ export function setupSearchInput() {
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
-            // Exécution des tests de performance
-
-            // const t0 = performance.now();
             let searchTerm = event.target.value;
 
             if (searchTerm.length !== 0) {
@@ -97,14 +94,6 @@ export function setupSearchInput() {
                     listRecipeContainer.appendChild(message);
                 }
             }
-
-            // Fin de la mesure de performance
-            // const t1 = performance.now();
-            // console.log(
-            //     `La recherche ${cleanSearchTerm} a pris ${
-            //         t1 - t0
-            //     } millisecondes.`
-            // );
         });
     } else {
         console.error("Search input not found");
