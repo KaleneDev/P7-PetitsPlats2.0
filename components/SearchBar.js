@@ -13,15 +13,16 @@ import {
 import { updateFilter, getTags } from "../utils/SearchFilters.js";
 import cleanString from "../utils/cleanString.js";
 import { getMatchedElements } from "../utils/SearchTags.js";
+// import { runPerformanceTests } from "../utils/testPerformance.js";
 
 export function SearchBarComponent() {
     return jsxParser/*html*/ `
-       <div class="search-bar">
-           <img src="assets/images/search-icon.png" alt="search" />
-           <input id="search-input" type="text" placeholder="Rechercher une recette, un ingredient, ..."/>
-           <span class="icon-xmark clean"></span>
-       </div>
-   `;
+        <div class="search-bar">
+            <img src="assets/images/search-icon.png" alt="search" />
+            <input id="search-input" type="text" placeholder="Rechercher une recette, un ingredient, ..."/>
+            <span class="icon-xmark clean"></span>
+        </div>
+    `;
 }
 
 export function setupSearchInput() {
@@ -32,7 +33,11 @@ export function setupSearchInput() {
 
     if (searchInput) {
         searchInput.addEventListener("input", (event) => {
+            // Exécution des tests de performance
+
             let searchTerm = event.target.value;
+            const t0 = performance.now();
+
             if (searchTerm.length !== 0) {
                 document.querySelector(".icon-xmark").style.display = "block";
             } else {
@@ -94,6 +99,12 @@ export function setupSearchInput() {
             }
 
             // Fin de la mesure de performance
+            const t1 = performance.now();
+            console.log(
+                `La recherche ${cleanSearchTerm} a pris ${
+                    t1 - t0
+                } millisecondes.`
+            );
         });
     } else {
         console.error("Search input not found");
