@@ -30,8 +30,6 @@ export async function runPerformanceTests() {
             const startTime = performance.now(); // Démarre le chronomètre
             searchInput.dispatchEvent(event);
             setupSearchInput();
-            // Note : Cela suppose que le traitement de l'événement est synchrone.
-            // Dans un cas réel, tu devrais attendre que la recherche soit vraiment finie (peut-être via une promesse).
 
             const endTime = performance.now(); // Arrête le chronomètre
             totalTime += endTime - startTime; // Accumule le temps total
