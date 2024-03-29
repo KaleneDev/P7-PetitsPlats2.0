@@ -1,7 +1,7 @@
 import { TagsComponent } from "../components/Tags.js";
 import { updateRecipeList } from "../utils/SearchRecipes.js";
 import { getRecipeList, getRecipListSearch } from "./dataManager.js";
-import { removeTag, getTags, updateFilter } from "./SearchFilters.js";
+import { removeTag, getTags } from "./SearchFilters.js";
 
 let matchedElements = [];
 
