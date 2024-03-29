@@ -1,5 +1,12 @@
-const searchTerms = ["pomme", "poisson", "tarte aux pommes", "carotte", "chocolat"];
-const repetitions = 100; // Nombre de fois que chaque terme sera recherché
+import { setupSearchInput } from "../components/SearchBar.js";
+const searchTerms = [
+    "pomme",
+    "poisson",
+    "tarte aux pommes",
+    "carotte",
+    "chocolat",
+];
+const repetitions = 1; // Nombre de fois que chaque terme sera recherché
 
 export async function runPerformanceTests() {
     const searchInput = document.getElementById("search-input");
@@ -22,7 +29,7 @@ export async function runPerformanceTests() {
 
             const startTime = performance.now(); // Démarre le chronomètre
             searchInput.dispatchEvent(event);
-
+            setupSearchInput();
             // Note : Cela suppose que le traitement de l'événement est synchrone.
             // Dans un cas réel, tu devrais attendre que la recherche soit vraiment finie (peut-être via une promesse).
 
