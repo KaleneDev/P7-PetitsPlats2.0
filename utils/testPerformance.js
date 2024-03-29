@@ -1,4 +1,5 @@
-import { setupSearchInput } from "../components/SearchBar.js";
+// import { setupSearchInput } from "../components/SearchBar.js";
+import { searchRecipes } from "./SearchRecipes.js";
 const searchTerms = [
     "pomme",
     "poisson",
@@ -29,13 +30,14 @@ export async function runPerformanceTests() {
 
             const startTime = performance.now(); // Démarre le chronomètre
             searchInput.dispatchEvent(event);
-            setupSearchInput();
+            searchRecipes(term);
 
             const endTime = performance.now(); // Arrête le chronomètre
             totalTime += endTime - startTime; // Accumule le temps total
         }
 
         const averageTime = totalTime / repetitions; // Calcule la moyenne du temps de recherche pour ce terme
+
         console.log(
             `Moyenne du temps pour '${term}' : ${averageTime.toFixed(
                 2
